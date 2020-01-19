@@ -70,7 +70,7 @@ As using 3X3 kernel with stride 1 reduce the input size by 2, we can also calcul
 4. How are kernels initialized? 
 
 Each kernals are randomly initialized in DNN and are futher learned and adjusted during back-propagation.
-If required we can also initlial the kernal using layer fucntions parameters. 
+If required we can also initialize the kernal using various initilializer such as Gaussian sampling, Sober filter etc using layer function parameters. 
 
 
 5. What happens during the training of a DNN?
