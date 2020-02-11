@@ -8,17 +8,18 @@ Total params: 9,720
 
 Validation Accuracy: 99.46%  at Epoch 17
 
-Colab link: https://colab.research.google.com/drive/1vX1ouo0XCsNyUIP5Z01DlfF93_QHRbgw#scrollTo=xdydjYTZFyi3
+Colab link: https://colab.research.google.com/drive/1vX1ouo0XCsNyUIP5Z01DlfF93_QHRbgw#scrollTo=0m2JWFliFfKT
 
 
-Attempt-1:
+
+Attempt-2:
 ----------
 
 Total params: 7,976
 
 Validation Accuracy: 99.41%  at Epoch 19
 
-Colab link: https://colab.research.google.com/drive/1TYurp6C0Ok7wxKhTCY5d7nCt8Xw35XST
+Colab link: https://colab.research.google.com/drive/1TYurp6C0Ok7wxKhTCY5d7nCt8Xw35XST#scrollTo=0m2JWFliFfKT
 
 
 Overall Model Architecture Summary:
