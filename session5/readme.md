@@ -1,6 +1,17 @@
 # Assignment-5: MNIST Model (Design Model with Discipline!)
 
-![](images/steps.png)
+### Steps followed to build the model
+-------------------------------------
+
+![](images/steps.PNG)
+
+### Steps Summary
+------------------
+
+![](images/steps_details.PNG)
+
+
+----------------------------------------------------------------------------------------------------------------
 
 ### Step-1: EVA4S5F1_BaseModel.ipynb
 
