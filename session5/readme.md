@@ -1,29 +1,23 @@
-Assignment-5: MNIST Model (Design Model with Discipline!)
---------------------------------------------------------
+# Assignment-5: MNIST Model (Design Model with Discipline!)
 
-Step-1: EVA4S5F1_BaseModel.ipynb
------------------------------------
+![(images/steps.png)
+
+# Step-1: EVA4S5F1_BaseModel.ipynb
 
 Colab link: https://colab.research.google.com/drive/1BCy1rR2tFRDWYqJFt2-k5KVtXiiLL4u7#scrollTo=YtssFUKb-jqx
 
 Target:
-
 1. Base model and working code
 
 Result: 
 
-1. Parameters: 122,256
-
-2. Best Train Accuracy: 99.03 (15th Epoch) & 99.02 (19th Epoch)
-
-3. Best Test Accuracy : 98.83 (12th Epoch) & 98.63 (13th Epoch)
+- 1. Parameters: 122,256
+- 2. Best Train Accuracy: 99.03 (15th Epoch) & 99.02 (19th Epoch)
+- 3. Best Test Accuracy : 98.83 (12th Epoch) & 98.63 (13th Epoch)
 
 Analysis:
-
 1. Model is working. Model work flow is ready for incremental changes in subsequent steps.
-
 2. No overfitting as gap between train and test accuracy is less.
-
 3. We can push this model to increase accuracy. However, our target is to design model with less than 20K parameters.
    so we will be updating this model to meet this criteria
 
