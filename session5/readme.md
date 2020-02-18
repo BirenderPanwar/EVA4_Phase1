@@ -1,4 +1,4 @@
-Assignment-5: MNIST Model (Design Model with Decipline!)
+Assignment-5: MNIST Model (Design Model with Discipline!)
 --------------------------------------------------------
 
 Step-1: EVA4S5F1_BaseModel.ipynb
@@ -157,7 +157,10 @@ Analysis:
 3. Model still have capacity to push further to improve efficiency. 
 
 
-As Dropout and Image augmentaion doest not working well together for the existing model as per Step-5. Let alos make attempt to build model without adding Dropout layer. 
+
+As Dropout and Image augmentaion doest not working well together for the existing model as per Step-5. Let also make attempt to build model without adding Dropout layer. 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 Step-5A: EVA4S5F5_ImageAugmentation_NoDropout.ipynb
 ------------------------------------------------------
