@@ -1,8 +1,8 @@
 # Assignment-5: MNIST Model (Design Model with Discipline!)
 
-![(images/steps.png)
+![](images/steps.png)
 
-# Step-1: EVA4S5F1_BaseModel.ipynb
+### Step-1: EVA4S5F1_BaseModel.ipynb
 
 Colab link: https://colab.research.google.com/drive/1BCy1rR2tFRDWYqJFt2-k5KVtXiiLL4u7#scrollTo=YtssFUKb-jqx
 
@@ -11,9 +11,9 @@ Target:
 
 Result: 
 
-- 1. Parameters: 122,256
-- 2. Best Train Accuracy: 99.03 (15th Epoch) & 99.02 (19th Epoch)
-- 3. Best Test Accuracy : 98.83 (12th Epoch) & 98.63 (13th Epoch)
+1. Parameters: 122,256
+2. Best Train Accuracy: 99.03 (15th Epoch) & 99.02 (19th Epoch)
+3. Best Test Accuracy : 98.83 (12th Epoch) & 98.63 (13th Epoch)
 
 Analysis:
 1. Model is working. Model work flow is ready for incremental changes in subsequent steps.
@@ -22,29 +22,21 @@ Analysis:
    so we will be updating this model to meet this criteria
 
 
-Step-2: EVA4S5F2_LightWeightModel.ipynb
-------------------------------------------
+### Step-2: EVA4S5F2_LightWeightModel.ipynb
 
 Colab link: https://colab.research.google.com/drive/1BCy1rR2tFRDWYqJFt2-k5KVtXiiLL4u7#scrollTo=YtssFUKb-jqx
 
 Target:
-
 1. Design the lighter model. 
-
 2. Reducing number of kernals in convolution block-1 and block2 layers
 
 Result: 
-
 1. Parameters: 9,576
-
 2. Best Train Accuracy: 98.61 (13th Epoch)
-
 3. Best Test Accuracy : 98.57 (15th Epoch)
 
 Analysis:
-
 1. Good model! No overfitting
-
 3. We can continue working on this model to increase accuracy.
 
 
