@@ -126,7 +126,7 @@ Misclassified Images
 
 Analysis:
 1. L1 or L2 Regularization has improved the model test accuracy. Neither has any impact on training accuracy but had made the model more generalized as it has improve the model efficiency to classify unseen images.
-2. L1 is performing better and giving consistent test accuracy above 99.50 from 12th Epoch onwards. This might be due to features whcih are not important and contributing much are penalized heavily. 
+2. L1 is performing better and giving consistent test accuracy above 99.50 from 12th Epoch onwards. This might be due to features which are not important and contributing much are penalized heavily. 
 3. L2 is also performing better but not as good as L1 in term of test accuracy. However, L1 is overfitting more compared to L2
-4. Using L1 and L2 together had gedraded the model performaces and has hampered the test accuracy. this is due to the cascading effect of using both L1 and L2 together.
+4. Using L1 and L2 together had ge-draded the model performaces and has hampered the test accuracy. this is due to the cascading effect of using both L1 and L2 together.
 
