@@ -21,35 +21,35 @@ class Cifar10Net(nn.Module):
 
         # Transition Layer for Convolution block-1
         # Maxpooling followed by 1X1 conv
-        self.conv_blk1_transition = mutils.Conv2d_TransistionBlock(64,16)                                         #Output: 16X16X16, Jin=1, Jout=2, GRF: 8X8
+        self.conv_blk1_transition = mutils.Conv2d_TransistionBlock(64,16)                                    #Output: 16X16X16, Jin=1, Jout=2, GRF: 8X8
 
         # Convolution block-2
         self.conv_blk2 = nn.Sequential(
-            mutils.Conv2d_BasicBlock(inC=16, outC=32, ksize=(3,3), padding=1, dilation=2, drop_val=drop_val), #Output: 32X16X16, Jin=2, GRF: 12X12
-            mutils.Conv2d_BasicBlock(inC=32, outC=64, ksize=(3,3), padding=1, dilation=2, drop_val=drop_val)  #Output: 64X16X16, Jin=2, GRF: 16X16
+            mutils.Conv2d_BasicBlock(inC=16, outC=32, ksize=(3,3), padding=1, dilation=2, drop_val=drop_val),#Output: 32X14X14, Jin=2, GRF: 16X16
+            mutils.Conv2d_BasicBlock(inC=32, outC=64, ksize=(3,3), padding=1, dilation=2, drop_val=drop_val) #Output: 64X12X12, Jin=2, GRF: 22X22
         )
 
         # Transition Layer for Convolution block-2
-        self.conv_blk2_transition = mutils.Conv2d_TransistionBlock(64,16)                                          #Output: 16X8X8, Jin=2, Jout=4, GRF: 18X18
+        self.conv_blk2_transition = mutils.Conv2d_TransistionBlock(64,16)                                    #Output: 16X6X6, Jin=2, Jout=4, GRF: 24X24
 
         # Convolution block-3
         self.conv_blk3 = nn.Sequential(
-            mutils.Conv2d_BasicBlock(inC=16, outC=32, ksize=(3,3), padding=1, drop_val=drop_val),#Output: 32X8X8, Jin=4, GRF: 26X26
-            mutils.Conv2d_BasicBlock(inC=32, outC=64, ksize=(3,3), padding=1, drop_val=drop_val) #Output: 64X8X8, Jin=4, GRF: 34X34
+            mutils.Conv2d_BasicBlock(inC=16, outC=32, ksize=(3,3), padding=1, drop_val=drop_val),			 #Output: 32X6X6, Jin=4, GRF: 32X32
+            mutils.Conv2d_BasicBlock(inC=32, outC=64, ksize=(3,3), padding=1, drop_val=drop_val) 			 #Output: 64X6X6, Jin=4, GRF: 40X40
         )
 
         # Transition Layer for Convolution block-2
-        self.conv_blk3_transition = mutils.Conv2d_TransistionBlock(64,16)                                           #Output: 16X4X4, Jin=4, Jout=8, GRF: 38X38
+        self.conv_blk3_transition = mutils.Conv2d_TransistionBlock(64,16)                                    #Output: 16X3X3, Jin=4, Jout=8, GRF: 44X44
 
         # Convolution block-4
         self.conv_blk4 = nn.Sequential(
-            mutils.Conv2d_Seperable_BasicBlock(inC=16, outC=32, ksize=(3,3), padding=1, drop_val=drop_val),    #Output: 32X4X4, Jin=8, GRF: 54X54
-            mutils.Conv2d_Seperable_BasicBlock(inC=32, outC=64, ksize=(3,3), padding=1, drop_val=drop_val),    #Output: 64X4X4, Jin=8, GRF: 50X60
+            mutils.Conv2d_Seperable_BasicBlock(inC=16, outC=32, ksize=(3,3), padding=1, drop_val=drop_val),  #Output: 32X3X3, Jin=8, GRF: 60X60
+            mutils.Conv2d_Seperable_BasicBlock(inC=32, outC=64, ksize=(3,3), padding=1, drop_val=drop_val),  #Output: 64X3X3, Jin=8, GRF: 76X76
         )
 
         # Output Block
         self.output_block = nn.Sequential(
-            nn.AvgPool2d(kernel_size=3),                                                                     #Output: 128X1X1, Jin=8, GRF: 74X74
+            nn.AvgPool2d(kernel_size=3),                                                            #Output: 64X1X1, Jin=8, GRF: 92X92
             nn.Conv2d(in_channels=64, out_channels=10, kernel_size=(1,1), padding=0,  bias=False),  #Output: 10X1X1, combining to 10 channels as we need 10 classes for predictions
             # no ReLU for last covv layer
             # No Batch Normalization
@@ -94,37 +94,36 @@ class Cifar10NetFxnBased(nn.Module):
 
         # Transition Layer for Convolution block-1
         # Maxpooling followed by 1X1 conv
-        self.conv_blk1_transition = self.conv2d_transistion_blk_fxn(64,16)                                          #Output: 16X16X16, Jin=1, Jout=2, GRF: 8X8
+        self.conv_blk1_transition = self.conv2d_transistion_blk_fxn(64,16)                                     #Output: 16X16X16, Jin=1, Jout=2, GRF: 8X8
 
         # Convolution block-2
         self.conv_blk2 = nn.Sequential(
-            self.conv2d_basicBlock_fxn(inC=16, outC=32, ksize=(3,3), padding=1, dilation=2, drop_val=drop_val), #Output: 32X16X16, Jin=2, GRF: 12X12
-            self.conv2d_basicBlock_fxn(inC=32, outC=64, ksize=(3,3), padding=1, dilation=2, drop_val=drop_val)  #Output: 64X16X16, Jin=2, GRF: 16X16
+            self.conv2d_basicBlock_fxn(inC=16, outC=32, ksize=(3,3), padding=1, dilation=2, drop_val=drop_val), #Output: 32X14X14, Jin=2, GRF: 16X16
+            self.conv2d_basicBlock_fxn(inC=32, outC=64, ksize=(3,3), padding=1, dilation=2, drop_val=drop_val)  #Output: 64X12X12, Jin=2, GRF: 22X22
         )
 
         # Transition Layer for Convolution block-2
-        self.conv_blk2_transition = self.conv2d_transistion_blk_fxn(64,16)                                          #Output: 16X8X8, Jin=2, Jout=4, GRF: 18X18
+        self.conv_blk2_transition = self.conv2d_transistion_blk_fxn(64,16)                                      #Output: 16X6X6, Jin=2, Jout=4, GRF: 24X24
 
         # Convolution block-3
         self.conv_blk3 = nn.Sequential(
-            self.conv2d_basicBlock_fxn(inC=16, outC=32, ksize=(3,3), padding=1, drop_val=drop_val),#Output: 32X8X8, Jin=4, GRF: 26X26
-            self.conv2d_basicBlock_fxn(inC=32, outC=64, ksize=(3,3), padding=1, drop_val=drop_val) #Output: 64X8X8, Jin=4, GRF: 34X34
+            self.conv2d_basicBlock_fxn(inC=16, outC=32, ksize=(3,3), padding=1, drop_val=drop_val),				#Output: 32X6X6, Jin=4, GRF: 32X32
+            self.conv2d_basicBlock_fxn(inC=32, outC=64, ksize=(3,3), padding=1, drop_val=drop_val) 				#Output: 64X6X6, Jin=4, GRF: 40X40
         )
 
         # Transition Layer for Convolution block-3
-        self.conv_blk3_transition = self.conv2d_transistion_blk_fxn(64,16)                                           #Output: 16X4X4, Jin=4, Jout=8, GRF: 38X38
+        self.conv_blk3_transition = self.conv2d_transistion_blk_fxn(64,16)                                      #Output: 16X3X3, Jin=4, Jout=8, GRF: 44X44
 
         # Convolution block-4
         self.conv_blk4 = nn.Sequential(
-            self.conv2d_seperable_basicBlock_fxn(inC=16, outC=32, ksize=(3,3), padding=1, drop_val=drop_val),    #Output: 32X4X4, Jin=8, GRF: 54X54
-            self.conv2d_seperable_basicBlock_fxn(inC=32, outC=64, ksize=(3,3), padding=1, drop_val=drop_val),    #Output: 64X4X4, Jin=8, GRF: 50X60
+            self.conv2d_seperable_basicBlock_fxn(inC=16, outC=32, ksize=(3,3), padding=1, drop_val=drop_val),   #Output: 32X3X3, Jin=8, GRF: 60X60
+            self.conv2d_seperable_basicBlock_fxn(inC=32, outC=64, ksize=(3,3), padding=1, drop_val=drop_val),   #Output: 64X3X3, Jin=8, GRF: 76X76
         )
 
         # Output Block
         self.output_block = nn.Sequential(
-            nn.AvgPool2d(kernel_size=3),                                                            #Output: 128X1X1, Jin=8, GRF: 74X74
-            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=(1,1), padding=0,  bias=False), # Dense Layer
-            nn.Conv2d(in_channels=128, out_channels=10, kernel_size=(1,1), padding=0,  bias=False),  #Output: 10X1X1, combining to 10 channels as we need 10 classes for predictions
+            nn.AvgPool2d(kernel_size=3),                                                            #Output: 64X1X1, Jin=8, GRF: 92X92
+            nn.Conv2d(in_channels=64, out_channels=10, kernel_size=(1,1), padding=0,  bias=False),  #Output: 10X1X1, combining to 10 channels as we need 10 classes for predictions
             # no ReLU for last covv layer
             # No Batch Normalization
             # No Dropout
