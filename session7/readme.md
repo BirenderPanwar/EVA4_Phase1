@@ -34,7 +34,7 @@ Analysis:
 1. Model is overfitting. 
 2. Model still have capacity to push further to improve efficiency. 
 3. Image augmentation can be used to further regularize the model
-4. We might need different GRF for each classes. Restnet kind of model might work better. To be expereiment.
+4. We might need different GRF for each classes. Resnet kind of architetcure might work better. To be expereiment.
 
 Model Test accuracy for each classes:
 
