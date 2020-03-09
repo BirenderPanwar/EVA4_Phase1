@@ -38,26 +38,32 @@ Three solutions are created in incremented mannner using resnet18 based network 
 
 Solution file: EVA4S8_main_attempt3.ipynb
 
-### Mean and standard devistion calculation for entire dataset
+Mean and standard devistion calculation for entire dataset
+----------------------------------------------------------
 
 Total dataset(train+test) shape:  (60000, 32, 32, 3)
 means: (0.49186864, 0.48265335, 0.44717798)
 stds: (0.24697131, 0.24338901, 0.26159254)
 
 Final Result:
+-------------
+
 1. Training best result: Accuracy: 96.17 at Epoch 38
 2. Testing  best result: Accuracy: 92.03 at Epoch 38 (88+ accuracy is acheived at Epoch-9 onward, 90+ accuracy from Epoch-17 onwards)
 3. Acuracy Gap: 4.14
 
 Model Test accuracy for each classes:
+-------------------------------------
 
 ![](images/attempt3_class_based_accuracy.PNG)
 
 Model Epoch History
+-------------------
 
 ![](images/attempt3_model_history.png)
 
 Learning Rate Plot
+------------------
 
 ![](images/attempt3_lr_trend.png)
 
