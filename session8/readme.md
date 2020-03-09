@@ -70,6 +70,7 @@ Learning Rate Plot
 ![](images/attempt3_lr_trend.png)
 
 Misclassified Images
+--------------------
 
 ![](images/attempt3__misclassified_images.PNG)
 
