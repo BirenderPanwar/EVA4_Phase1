@@ -33,7 +33,7 @@ Three solutions are created in incremented mannner using resnet18 based network 
 ![](images/model_results.PNG)
 
 
-### Detailed overview of the final solutions
+# Detailed overview of the final solutions
 --------------------------------------------
 
 Solution file: EVA4S8_main_attempt3.ipynb
