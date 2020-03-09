@@ -37,11 +37,13 @@ Three solutions are created in incremented mannner using resnet18 based network 
 --------------------------------------------
 
 Solution file: EVA4S8_main_attempt3.ipynb
+-----------------------------------------
 
 Mean and standard devistion calculation for entire dataset
 ----------------------------------------------------------
 
 Total dataset(train+test) shape:  (60000, 32, 32, 3)
+
 means: (0.49186864, 0.48265335, 0.44717798)
 stds: (0.24697131, 0.24338901, 0.26159254)
 
