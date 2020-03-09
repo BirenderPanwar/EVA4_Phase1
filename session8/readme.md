@@ -69,7 +69,7 @@ Learning Rate Plot
 
 Misclassified Images
 
-![](images/attempt3__model_misclassified.PNG)
+![](images/attempt3__misclassified_images.PNG)
 
 ----------------------------------------------------------------------------------------------------------------
 
