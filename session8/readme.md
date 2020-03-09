@@ -55,7 +55,7 @@ Final Result:
 Model Test accuracy for each classes:
 -------------------------------------
 
-![](images/attempt3_class_based_accuracy.PNG)
+![](images/attempt3__class_based_accuracy.PNG)
 
 Model Epoch History
 -------------------
@@ -69,7 +69,7 @@ Learning Rate Plot
 
 Misclassified Images
 
-![](images/attempt3_model_misclassified.PNG)
+![](images/attempt3__model_misclassified.PNG)
 
 ----------------------------------------------------------------------------------------------------------------
 
