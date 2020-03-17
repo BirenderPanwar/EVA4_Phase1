@@ -11,8 +11,9 @@ Solution file: EVA4S9_main.ipynb
 ------------------------------
 Reusable codes are packages into their respective python files as below:
 
-Folders: utils, models, gradcam
+### Folders: utils, models, gradcam
 
+Folder: \utils\
 1. utils\data_utils.py: This file contaon code for loading CIFAR10 dataset, transformation fxn and data loader unitility functions
 2. utils\plot_utils.py: All image handling and plotting function are packaged into thsi file. Few funtions such as visualizing images dataset, plotting model hsitory, plotting misclassified images for the built model etc.
 3. utils\model_utils.py: Funtions and classes to build model. It also contains train and test functions. Various configution parameteres are profided to choose the loss and regularization selections.
