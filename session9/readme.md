@@ -35,6 +35,16 @@ Folder: \gradcam\
 
 ----------------------------------------------------------------------------------------------------------------
 
+### Basic Implementation Strategy
+-----------------------------------
+
+1. Calculated mean and std calculation for entire CIFAR10 dataset
+2. Applied Data augmentation using albumentations library: Horizontalflip, coarseDropout.
+3. resnet18 based model creation.
+4. build and model training using L1 and L2 regularization(weight_decay: 0.001)
+5. MultiStepLR: milestones=[8,16,24], gamma=0.3
+7. Various Image augmentation techniques in steps are applied to avoid overfitting
+
 Mean and standard devistion calculation for entire dataset
 ----------------------------------------------------------
 
@@ -46,6 +56,8 @@ stds: (0.24697131, 0.24338901, 0.26159254)
 
 Sample images of albumentations augmentation
 --------------------------------------------
+
+Data Augmentation technique: Horizontalflip, CoarseDropout
 
 ![](images/albumentations_images.png)
 
