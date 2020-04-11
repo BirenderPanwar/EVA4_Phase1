@@ -64,16 +64,16 @@ to max lr value
 
 Range Test Analysis:
 
-Maximun accuracy is observed for lr=0.091(max_lr)
-Min lr is set as max_lr/10 = 0.0091
-This lr range can be used while training the network
+1. Maximun accuracy is observed for lr=0.0901(max_lr)
+2. Min lr is set as max_lr/10 = 0.00901
+3. This lr range can be used while training the network
 
 Final Result:
 -------------
-Model is trained for 24 Epochs, with increasing Lr upto 5 epochs and then decreasing till last epoch
+Model is trained for 24 Epochs, with increasing LR upto 5 epochs and then decreasing till last epoch
 
-Training best result: Accuracy: 98.55 at Epoch 24
-Testing  best result: Accuracy: 89.43 at Epoch 24
+- Training best result: Accuracy: 98.55 at Epoch 24
+- Testing  best result: Accuracy: 89.43 at Epoch 24
 
 Model Test accuracy for each classes:
 -------------------------------------
@@ -87,7 +87,7 @@ Model Epoch History
 ![](images/model_history.png)
 
 
-One Cycle Policy Plot for Learning Rate
+One CycleLR Policy Plot for Learning Rate
 ---------------------------------------
 
 1. One CyclicLR is used with "triangular" policy.
