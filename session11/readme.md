@@ -1,10 +1,10 @@
-# Assignment-10: 
+# Assignment-11: 
 
 1. CIFAR10 Model using custom Resnet network architetcure
 2. Data augmentation using albumentations library - cutout, rotattion, RandomCrop augmentation
-3. LR Range Test module is implemented to find max_lr for best accuracy by running model for many epoch with linearly incrmenting Learning rate
-4. On cycle Policy is impemented while training the model. Lr is incremented in iterations from min to max  value in 5 epoch and for remaining epoch lr is lineraly decrease
-5. Plotting of one cycle policy
+3. LR Range Test module is implemented to find max_lr for best accuracy by running model for many epoch with linearly increamenting Learning rate
+4. One cycle Policy is impemented while training the model. LR is incremented in iterations(batch wise) from min to max  value for first 5 epochs and for remaining epoch lr is lineraly decrease
+5. Plotting of one cycle LR policy
 
 Following new files are added:
 ------------------------------
