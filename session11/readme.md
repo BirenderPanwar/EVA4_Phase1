@@ -64,9 +64,9 @@ to max lr value
 
 Range Test Analysis:
 
-1. Maximun accuracy is observed for lr=0.0901(max_lr)
-2. Min lr is set as max_lr/10 = 0.00901
-3. This lr range can be used while training the network
+- Maximun accuracy is observed for lr=0.0901(max_lr)
+- Min lr is set as max_lr/10 = 0.00901
+- This lr range can be used while training the network
 
 Final Result:
 -------------
