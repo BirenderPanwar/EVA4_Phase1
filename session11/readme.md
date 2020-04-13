@@ -13,8 +13,12 @@ Following new files are added:
 2. models\resnet_custom.py: resnet arch is impemented as per the session-11 assignment
 
 
-Solution file: EVA4S11_main.ipynb
---------------------------------
+Solution file: 
+--------------
+
+- Attempt1: EVA4S11_main.ipynb 			(test accuracy: 89.43)
+- Attempt2: EVA4S11_main_attempt2.ipynb (test accuracy: 91.28)
+
 
 ### Utility Files Descriptions
 ------------------------------
