@@ -56,8 +56,8 @@ Data Augmentation technique: Cutout(16x16), RandomCrop(padding=8), HorizontalFli
 Final Result:
 -------------
 
-Training best result: Accuracy: 91.19 at Epoch 50
-Testing  best result: Accuracy: 61.52 at Epoch 50 [50+ accuracy is acheived from epoch 16 onwards]
+- Training best result: Accuracy: 91.19 at Epoch 50
+- Testing  best result: Accuracy: 61.52 at Epoch 50 [50+ accuracy is acheived from epoch 16 onwards]
 
 Model Epoch History
 -------------------
