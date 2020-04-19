@@ -14,9 +14,9 @@ Solution file: EVA4S12_Assignment_B.ipynb.ipynb
 ### Package Descriptions
 ------------------------
 
-1. EVA4S12_Assignment_B.ipynb.ipynb: solution file for K-Mean clustering on bounding boxes
+1. EVA4S12_Assignment_B.ipynb: solution file for K-Mean clustering on bounding boxes
 1. dog_images: Folder contains 50 dog images
-2. dog_coco_json.json: this is coco json file exported through VGG tool
+2. dog_coco_json.json: this is coco json file exported through VGG tool. it contains file and bbox attributes
 
 ----------------------------------------------------------------------------------------------------------------
 
@@ -33,14 +33,14 @@ File name: dog_coco_json.json
 
 COCO json file contains two important json elements: "images" and "annotations"
 
-# images: it contains attribute for each images as below:
+#images json element: it contains attribute for each images as below:
 
 - "id": unique id for the images
 - "file_name": image file name
 - "width": width of the image in pixels
 - "height": height of the image in pixels
 
-# annotations: it contains annotations for each images with following attributes:
+#annotations json element: it contains annotations for each images with following attributes:
 - "id": unique id for the images
 - "area": this is area of the bbox region.
 - "bbox": it contains four parameters in sequence as x,y,w,h where x,y are the center corodinates of the bounding box and w,h are width and height of the bbox
@@ -56,10 +56,10 @@ Normalizing images and bbox
 To make all the bounding boxes parameter to be comparable we normalize all the images to 1X1. 
 New bbox parameters are calculated by dividing with the respective image height and width as below:
 
-bbox_x_new = bbox_x / img_w {divided by width of the image}
-bbox_y_new = bbox_y / img_h {divided by heigth of the image}
-bbox_h_new = bbox_h / img_h {divided by width of the image}
-bbox_w_new = bbox_w / img_w {divided by heigth of the image}
+- bbox_x_new = bbox_x / img_w {divided by width of the image}
+- bbox_y_new = bbox_y / img_h {divided by heigth of the image}
+- bbox_h_new = bbox_h / img_h {divided by width of the image}
+- bbox_w_new = bbox_w / img_w {divided by heigth of the image}
 
 Determining K-Mean clustering for bbox
 --------------------------------------
@@ -68,7 +68,7 @@ Determining K-Mean clustering for bbox
 2. Iterating values of k from 1 to 10 fit K means model and calculating c distance i.e measure for Sum of squares error.
 4. draw elbow plot and get the optimal K from graph
 
-As per below elbow plot, Optimal K is 3 as beyond this distortion or sum of square error does not changes much
+As per below elbow plot, Optimal K is 3 as beyond this k value the distortion or sum of square error does not changes much
 
 ![](images/elbow_plot.PNG)
 
