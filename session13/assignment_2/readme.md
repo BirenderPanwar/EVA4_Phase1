@@ -12,6 +12,21 @@ Refered resources:
 - https://github.com/miki998/YoloV3_Annotation_Tool [annotations tool]
 - https://en.wikibooks.org/wiki/FFMPEG_An_Intermediate_Guide/image_sequence [FFMPEG tool]
 
+Package Descriptions:
+---------------------
+
+Solution File: /YoloV3/YoloV3Sample.ipynb
+
+1. /YoloV3/ : root directory whcih contains the entire package
+2. /YoloV3/cfg: contains config file for model configuration
+3. /YoloV3/data/customdata: 
+- custom.data: contains path for train and validation data, class names, and number of classes
+- custom.names: contains class name. for this assignment it contains only one classname: flying disc
+- custom.shapes: contain shapes for all inputs images in same order as files in /images/ folder.
+- custom.txt: path for all the images to be processed
+- images: contains all the input images in incremental filename. user need to unzip images.zip
+- labels: contains annotation for each files. user need to unzip lables.zip
+
 Steps Followed:
 ---------------
 
