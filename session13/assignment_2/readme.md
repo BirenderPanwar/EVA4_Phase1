@@ -1,82 +1,96 @@
-# Assignment 12-B: 
+# Assignment 13-2: Training custom dataset for YOLOV3
 
-Objectives:
------------
+New Class used: Flying Disc
+--------------
 
-1. Download 50 images of dogs. 
-2. Use VGG tool to annotate bounding boxes around the dogs.
-3. Download JSON file. 
-4. Describe the contents of this JSON file in FULL details 
-5. Find out the best total numbers of clusters.
+Refered resources:
+------------------
 
-Solution file: EVA4S12_Assignment_B.ipynb.ipynb 
+- colab: https://colab.research.google.com/drive/1LbKkQf4hbIuiUHunLlvY-cc0d_sNcAgS
+- GitHub: https://github.com/theschoolofai/YoloV3
+- https://www.y2mate.com/en19 (for downloading youtube video)
+- https://github.com/miki998/YoloV3_Annotation_Tool [annotations tool]
+- https://en.wikibooks.org/wiki/FFMPEG_An_Intermediate_Guide/image_sequence [FFMPEG tool]
 
-### Package Descriptions
-------------------------
+Steps Followed:
+---------------
 
-1. EVA4S12_Assignment_B.ipynb: solution file for K-Mean clustering on bounding boxes
-1. dog_images: Folder contains 50 dog images
-2. dog_coco_json.json: this is coco json file exported through VGG tool. it contains file and bbox attributes
+1. 500 unique dataset collection for class not present in YoloV3
+2. Annotations
+3. Configuration for yolov3-custom.cfg
+4. custom data preperation
+5. training
+6. video frame genertaion for youtube video using ffmpeg tool
+7. applying detect.py on video frame for object detection. it generate frames with predicted bounding boxes
+8. generate final yolo video for frame having predicted bounding boxes
+9. upload video on youtube.
 
-----------------------------------------------------------------------------------------------------------------
 
-### 50 dog images used for annotations
-----------------------------------
+Configuration for yolov3-custom.cfg
+-----------------------------------
 
-![](images/dog_images.PNG)
+path: /cfg/yolov3-custom.cfg
 
+Following Two changes are done in .cfg file. classes=1 and model only one class dataset:
 
-### JSON File Descriptions
---------------------------
+- Filter size for last convolution layer is set as 18 [(classes(1) + objectiveness(1) + bbox(4)) * num of anchor boxes(3)]
+- classes=1 
 
-File name: dog_coco_json.json
+Custom dataset Preperation and setup
+------------------------------------
 
-COCO json file contains two important json elements: "images" and "annotations"
+- 500 unique images are downloaded from internet
+- Each images filename are set in orger for smooth operation as img001.jpg, img002.jpg to img500.jpg
+- all images are placed under /data/customdata/images
+- All images are annotated using YoloV3_Annotation_Tool. For each images correcponding annotation file is saved as .txt with same file name.
+- All annotations files/labels are placed under /data/customdata/labels
+- images file name and its lables file name shall be same. Example: img001.jpg<==>img001.txt
 
-#images json element: it contains attribute for each images as below:
-
-- "id": unique id for the images
-- "file_name": image file name
-- "width": width of the image in pixels
-- "height": height of the image in pixels
-
-#annotations json element: it contains annotations for each images with following attributes:
-- "id": unique id for the images
-- "area": this is area of the bbox region.
-- "bbox": it contains four parameters in sequence as x,y,w,h where x,y are the center corodinates of the bounding box and w,h are width and height of the bbox
-- "segmentation": it contains four x,y coordinates for the bounding boxes [x1,y1,x2,y2,x3,y3,x4,y4].
-   x1,y1 -> x,y coordinates for top left of bbox
-   x2,y2 -> x,y coordinates for top right of bbox
-   x3,y3 -> x,y coordinates for bottom right of bbox
-   x4,y4 -> x,y coordinates for bottom left of bbox
-
-Normalizing images and bbox
----------------------------
-
-To make all the bounding boxes parameter to be comparable we normalize all the images to 1X1. 
-New bbox parameters are calculated by dividing with the respective image height and width as below:
-
-- bbox_x_new = bbox_x / img_w {divided by width of the image}
-- bbox_y_new = bbox_y / img_h {divided by heigth of the image}
-- bbox_h_new = bbox_h / img_h {divided by width of the image}
-- bbox_w_new = bbox_w / img_w {divided by heigth of the image}
-
-Determining K-Mean clustering for bbox
+Sample dataset collected from internet
 --------------------------------------
 
-1. Performing K-Mean clustering on Bounding box heights and weights(bbox_h_new, bbox_w_new)
-2. Iterating values of k from 1 to 10 fit K means model and calculating c distance i.e measure for Sum of squares error.
-4. draw elbow plot and get the optimal K from graph
-
-As per below elbow plot, Optimal K is 3 as beyond this k value the distortion or sum of square error does not changes much
-
-![](images/elbow_plot.PNG)
+![](images/samples.PNG)
 
 
-Mapping each images to their respective cluster
------------------------------------------------
+Model Weight Folder:
+--------------------
 
-![](images/clustering.PNG)
+- weight folder is created under Yolov3 root
+- yolov3.weights and yolov3-spp-ultralytics.pt are place under this "weight" folder
+
+
+Model Training:
+---------------
+
+invoke train.py with proper -data and --cfg argument as below:
+
+![](images/training_cmd.PNG)
+
+
+# Bounding box and class prediction for video frame downloded from youtube
+---------------------------------------------------------------------------
+
+1. Short video having flying dish object class is downloaded from youtube using y2mate tool
+
+2. ffmpeg tool is used to get the frames from mp4 video. all video frame is stored under "video_frames" folder
+
+- Following command is used to pick frames for specific time interval:
+
+ffmpeg -i inp_video.mp4 -ss 00:02:20 -to 00:02:50 image-%04d.jpg
+
+3. detect.py is applied on input video frame and output frames are created with predicted bounding boxes
+
+4. ffmpeg tool is then used to generate the output video(.mp4) from output frames
+
+ffmpeg -i image-%04d.jpg flying_disc_yolo.mp4
+
+
+Result: 
+-------
+
+Final Yolov3 object detection video for detecing "flying disc" is uploaded on YouTube.
+
+Link: 
 
 ----------------------------------------------------------------------------------------------------------------
 
