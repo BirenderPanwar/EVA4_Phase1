@@ -90,7 +90,7 @@ Result:
 
 Final Yolov3 object detection video for detecing "flying disc" is uploaded on YouTube.
 
-Link: 
+Link: https://youtu.be/FmgJykA-e-8
 
 ----------------------------------------------------------------------------------------------------------------
 
