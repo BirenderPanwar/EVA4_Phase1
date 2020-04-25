@@ -1,6 +1,6 @@
 # Assignment 13-2: Training custom dataset for YOLOV3
 
-New Class used: Flying Disc
+New Class used: Donald Duck
 --------------
 
 Refered resources:
@@ -15,13 +15,13 @@ Refered resources:
 Package Descriptions:
 ---------------------
 
-Solution File: /YoloV3/YoloV3Sample.ipynb
+Solution File: /YoloV3/YoloV3Sample_DonaldDuck.ipynb
 
-1. /YoloV3/ : root directory whcih contains the entire package
+1. /YoloV3/ : root directory which contains the entire package
 2. /YoloV3/cfg: contains config file for model configuration
 3. /YoloV3/data/customdata: 
 - custom.data: contains path for train and validation data, class names, and number of classes
-- custom.names: contains class name. for this assignment it contains only one classname: flying disc
+- custom.names: contains class name. for this assignment it contains only one classname: donald duck
 - custom.shapes: contain shapes for all inputs images in same order as files in /images/ folder.
 - custom.txt: path for all the images to be processed
 - images: contains all the input images in incremental filename. user need to unzip images.zip
@@ -64,7 +64,7 @@ Custom dataset Preperation and setup
 Sample dataset collected from internet
 --------------------------------------
 
-![](images/samples.PNG)
+![](images/samples_donald.PNG)
 
 
 Model Weight Folder:
@@ -85,7 +85,7 @@ invoke train.py with proper -data and --cfg argument as below:
 # Bounding box and class prediction for video frame downloded from youtube
 ---------------------------------------------------------------------------
 
-1. Short video having flying dish object class is downloaded from youtube using y2mate tool
+1. Short video having "donald duck" as object class is downloaded from youtube using y2mate tool
 
 2. ffmpeg tool is used to get the frames from mp4 video. all video frame is stored under "video_frames" folder
 
@@ -97,15 +97,20 @@ ffmpeg -i inp_video.mp4 -ss 00:02:20 -to 00:02:50 image-%04d.jpg
 
 4. ffmpeg tool is then used to generate the output video(.mp4) from output frames
 
-ffmpeg -i image-%04d.jpg flying_disc_yolo.mp4
+ffmpeg -i image-%04d.jpg donald_duck_yolo.mp4
 
 
 Result: 
 -------
 
-Final Yolov3 object detection video for detecing "flying disc" is uploaded on YouTube.
+1. Yolov3 object detection video for detecing "Donald Duck" is uploaded on YouTube.
+
+Link: https://youtu.be/zkVfTjr1ml4
+
+2. Additionally, same excersice is repeated for another class "flying disc" and is also uploaded on YouTube.
 
 Link: https://youtu.be/FmgJykA-e-8
+
 
 ----------------------------------------------------------------------------------------------------------------
 
