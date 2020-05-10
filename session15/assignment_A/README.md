@@ -58,41 +58,45 @@ Below plot show the randomly selected images from the custom dataset.
 ## Some dicipline in folders and file naming convention
 
 * Dicipline is required to manage the entire dataset. seperate folder is maintained for each kind of dataset: 
-- bg_images, fg_images, fg_mask_images, fg_bg_images, fg_bg_mask_images, fg_bg_depth_images.
+** bg_images, fg_images, fg_mask_images, fg_bg_images, fg_bg_mask_images, fg_bg_depth_images.
 * File naming guideline
-- For bg_images, fg_images, fg_mask_images dataset filename format: img_xxx.jpg (where xxx -> 1 to 100)
-- For fg_bg_images, fg_bg_mask_images, fg_bg_depth_images: fgxxx_bgxxx_xx.jpg or fgxxxflip_bgxxx_xx.jpg(Example: fg099_bg080_10.jpg or fg099flip_bg080_10.jpg
+** For bg_images, fg_images, fg_mask_images dataset filename format: img_xxx.jpg (where xxx -> 1 to 100)
+** For fg_bg_images, fg_bg_mask_images, fg_bg_depth_images: fgxxx_bgxxx_xx.jpg or fgxxxflip_bgxxx_xx.jpg(Example: fg099_bg080_10.jpg or fg099flip_bg080_10.jpg
 
 ## Dataset challenges for handling 400k images?
 
 * Creating 400k fg_bg images on colab takes long time to sync and hence Zipfile package is used and all new files are directly appended to the zip resource.
-as zip file is single resource, colab is fast to sync this resource. also in zip file is created in colab it is immediately accessible to all colab notebook for immediate used.
-user no need to wait for sip file to sync to thier local machine.
-* processing all 400k images need lots of RAM and it result in memory overrun. so approach is to process the images in batches and free the memory after each iterations so that memory requirement does not grow
-
+As zip file is single resource, colab is fast to sync this resource. As soon as zip file is created in colab, it is immediately accessible to all colab notebook for immediate use.
+User no need to wait for zip file to sync to their local machine.
+* Processing all 400k images need lots of RAM and it result in memory overrun. so approach is to process the images in batches and free the memory after each iterations so that memory requirement does not grow
+* For Depth prediction, images are processed in batch 1000 and deleting more once processed.
+* For mean calculation of entire dataset, first mean are calculated for each batch of images and  then these batch mean are used to find the mean for entire dataset.
 
 ## Creation of background images - square shape
 
 * zip plugin for google chrome is useful to download all the images in one shot from internet
-* as images are of different shapes and resolution. so utility function is created to filter very high or low resolution images and resizing the images to 192X192 dimension.
+* As images are of different shapes and resolution. so utility function is created to filter very high or low resolution images and resizing the images to 192X192 dimension.
 * Why 192?
-- size shall be multiple of 32 in order to work with nyu depth prediction model.
-- too high resolution images required more computation and RAM, so 192 is choosen so that we don't suffer with prediction efficieny and also RAM/computational requirement under control.
+** size shall be multiple of 32 in order to work with nyu depth prediction model.
+** too high resolution images required more computation and RAM, so 192 is choosen so that we don't suffer with prediction efficieny and also RAM/computational requirement under control.
  there is always a trade off between higher efficieny or resource requirement.
-- file names are maintained as img_xxx.jpg
+** file names are maintained as img_xxx.jpg (examples: img_001.jpg to img_100.jpg)
  
 ## How foreground images and its equivalent mask are created?
 
 * Transparent forground is created using power point tool and saved as png file. 
-* It has four channel where fourth channels is alpha channels containing transparent background and alpha channel is used for fg_mask creation.
-* As we need to have just forground object so resize image to the size of the object in image
-* Create equivalent mask using alpha channel
-* same file name is maintained for files in fg and its fg_mask. [img_xxx.jpg]
+* It has four channel where fourth channel is an alpha channels containing transparent background and alpha channel is used for fg_mask creation.
+* As we need to have just forground object so resize image to the size of the object in image. Utility fucntion is created to cut the portion of image using cv2 package by making use of finding the object structure and its contours.
+* Create equivalent mask using alpha channel.
+* Mask are created as single channel as we need to just represent white or black pixels and is sufficient to represent the mask. 
+* Same file name is maintained for files in fg and its fg_mask. [format: img_xxx.jpg]
 
 ## How fg_bg images and its equivalent mask are created?
 
 * Inputs are: bg_img, fg_img, fg_mask images
 * Output are: fg_bg and equivalent fg_bg_mask image. mask contains same file name for its fg_bg images
+* Mask are created as single channel as we need to just represent white or black pixels and is sufficient to represent the mask. 
+
 
 ```
 bg_img -> input background image
@@ -179,6 +183,14 @@ after every batch, memory are freed to ensure that it is avaiable for next itera
 3. Zip file resources are created in append mode and all new depth file is added to the resource.
    all previous processed depth images are retained in out zip file and avaialble for recovery.
 
+**Key notes:**
+
+* nyu model is used [(Depth Models)](https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) to create depth maps for the fg_bg images:
+* ZipFile package is used to read fromzip(400k inputs) and write into zip file(400k outputs) so avoid data sync issue in colab.
+* Data work flow is updated to process only 1000 images at a time for predictionto handle memory issues.
+* depth images are created as single channel as gray scale. 
+
+ 
 below is the results of depth mask prediction.
 
 ![](doc_images/depth_mask_result.jpg)   
