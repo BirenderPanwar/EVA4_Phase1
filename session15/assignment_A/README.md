@@ -48,11 +48,51 @@ Below plot show the randomly selected images from the custom dataset.
 
 <p align="center"><img style="max-width:500px" src="doc_images/dataset_visual.jpg" alt="Dataset visualization"></p>
 
+**Dataset creation time**
 
-## How fg is overlay over bg?
+* fg_bg and it mask images : it tooks 2:40 hours
+* Depth images : it tooks 4:53:21 hours
+
+## Dataset creation procedure
+
+## Some dicipline in folders and file naming convention
+
+* Dicipline is required to manage the entire dataset. seperate folder is maintained for each kind of dataset: 
+- bg_images, fg_images, fg_mask_images, fg_bg_images, fg_bg_mask_images, fg_bg_depth_images.
+* File naming guideline
+- For bg_images, fg_images, fg_mask_images dataset filename format: img_xxx.jpg (where xxx -> 1 to 100)
+- For fg_bg_images, fg_bg_mask_images, fg_bg_depth_images: fgxxx_bgxxx_xx.jpg or fgxxxflip_bgxxx_xx.jpg(Example: fg099_bg080_10.jpg or fg099flip_bg080_10.jpg
+
+## Dataset challenges for handling 400k images?
+
+* Creating 400k fg_bg images on colab takes long time to sync and hence Zipfile package is used and all new files are directly appended to the zip resource.
+as zip file is single resource, colab is fast to sync this resource. also in zip file is created in colab it is immediately accessible to all colab notebook for immediate used.
+user no need to wait for sip file to sync to thier local machine.
+* processing all 400k images need lots of RAM and it result in memory overrun. so approach is to process the images in batches and free the memory after each iterations so that memory requirement does not grow
+
+
+## Creation of background images - square shape
+
+* zip plugin for google chrome is useful to download all the images in one shot from internet
+* as images are of different shapes and resolution. so utility function is created to filter very high or low resolution images and resizing the images to 192X192 dimension.
+* Why 192?
+- size shall be multiple of 32 in order to work with nyu depth prediction model.
+- too high resolution images required more computation and RAM, so 192 is choosen so that we don't suffer with prediction efficieny and also RAM/computational requirement under control.
+ there is always a trade off between higher efficieny or resource requirement.
+- file names are maintained as img_xxx.jpg
+ 
+## How foreground images and its equivalent mask are created?
+
+* Transparent forground is created using power point tool and saved as png file. 
+* It has four channel where fourth channels is alpha channels containing transparent background and alpha channel is used for fg_mask creation.
+* As we need to have just forground object so resize image to the size of the object in image
+* Create equivalent mask using alpha channel
+* same file name is maintained for files in fg and its fg_mask. [img_xxx.jpg]
+
+## How fg_bg images and its equivalent mask are created?
 
 * Inputs are: bg_img, fg_img, fg_mask images
-* Output are: fg_bg and equivalent fg_bg_mask image
+* Output are: fg_bg and equivalent fg_bg_mask image. mask contains same file name for its fg_bg images
 
 ```
 bg_img -> input background image
@@ -123,3 +163,23 @@ fg_bg = cv2.add(bg_overlay, fg_overlay)
 ```
 
 ![](doc_images/fg_bg_procedure/fg_bg.jpg)
+
+## How depth images are created for fg_bg images?
+
+**Few challenges in handling 400k images?**
+
+1. loading all 400k images at a time is not feasible due to memory limitation
+2. Processing of 400k images takes 4.5~5 hours and it is possible that notebook execution can terminated in between.
+   we need to ensure that in next iteration it shall start from the place it got stopped.
+
+**To solve above issues**
+1. depth images are created in batches. for each foreground there are 4000 images. batch is processed at foreground level.
+after every batch, memory are freed to ensure that it is avaiable for next iteration.
+2. user shall provide the proper range for images for processing. 
+3. Zip file resources are created in append mode and all new depth file is added to the resource.
+   all previous processed depth images are retained in out zip file and avaialble for recovery.
+
+below is the results of depth mask prediction.
+
+![](doc_images/depth_mask_result.jpg)   
+
