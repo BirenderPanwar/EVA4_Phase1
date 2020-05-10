@@ -51,63 +51,71 @@ Below plot show the randomly selected images from the custom dataset.
 
 * bg, fg, fg_mask are the inputs images and using these images fg_bg and equivalent maks is created
 
-`
+```
 bg_img -> background image
-`
+```
+
 ![](doc_images/fg_bg_procedure/bg_img.jpg)
 
-`
-fg_img -> forfround image
-`
+```
+fg_img -> foreground image
+```
+
 ![](doc_images/fg_bg_procedure/fg_img.jpg)
 
-`
+```
 fg_mask -> foreground mask image
-`
-![](doc_images/fg_bg_procedure/fg_mask.jpg)
+```
 
-``
-# Create forground image with black background.
+![](doc_images/fg_bg_procedure/fg_img.jpg)
+
+```
+Create forground image with black background.
 fg_img_with_mask = cv2.bitwise_and(fg_img, fg_mask)
-``
+```
+
 ![](doc_images/fg_bg_procedure/fg_img_with_mask.jpg)
 
-``
-# choose random locations for masking. start location is choosen such that fg image get fits within bg image.
+```
+Choose random locations for masking. start location is choosen such that fg image get fits within bg image.
 h_start = np.random.randint(0,bg_img.shape[0]-h)
 w_start= np.random.randint(0,bg_img.shape[1]-w)
-``
+```
 
-``
-# create mask for fg and bg overlay images 
+```
+Create mask for fg and bg overlay images 
 fg_bg_mask = np.zeros(bg_img.shape, bg_img.dtype)
 fg_bg_mask.fill(0)
 fg_bg_mask[h_start:h_start+h, w_start:w_start+w] = fg_mask[:,:]
-``
+```
+
 ![](doc_images/fg_bg_procedure/fg_bg_mask.jpg)
 
-``
+```
 fg_bg_mask_inv = cv2.bitwise_not(fg_bg_mask)
-``
+```
+
 ![](doc_images/fg_bg_procedure/fg_bg_mask_inv.jpg)
 
-``
+```
 # background image with foreground portion filled with black
 bg_overlay = cv2.bitwise_and(bg_img, fg_bg_mask_inv)
-``
+```
+
 ![](doc_images/fg_bg_procedure/bg_overlay.jpg)
 
-``
+```
 # image with only forground portion is filled and remining background is kept black
 fg_overlay = np.zeros(bg_img.shape, bg_img.dtype)
 fg_overlay.fill(0)
 fg_overlay[h_start:h_start+h, w_start:w_start+w] = fg_img_with_mask[:,:]
-``
+```
+
 ![](doc_images/fg_bg_procedure/fg_overlay.jpg)
 
-``
+```
 # Finally add both fg overlay and bg overlay images to get the fg_bg image
 fg_bg = cv2.add(bg_overlay, fg_overlay) 
-``
-![](doc_images/fg_bg_procedure/fg_bg.jpg)
 ```
+
+![](doc_images/fg_bg_procedure/fg_bg.jpg)
