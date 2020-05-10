@@ -34,6 +34,8 @@ Let's have quick summary of dataset and visulaization for each kind of images
 
 **Dataset statistics**
 
+Notebook: **EVAS15_dataset_statistic.ipynb**[(Link)](EVAS15_dataset_statistic.ipynb):
+
 <p align="center"><img style="max-width:800px" src="doc_images/dataset_statistics.png" alt="Dataset statistics"></p>
 
 **Dataset visualization**
@@ -54,6 +56,8 @@ Below plot show the randomly selected images from the custom dataset.
 * Depth images : it tooks 4:53:21 hours
 
 ## Dataset creation procedure
+
+Notebook: **EVAS15_create_dataset.ipynb**[(Link)](EVAS15_create_dataset.ipynb)
 
 ## Some dicipline in folders and file naming convention
 
@@ -170,6 +174,8 @@ fg_bg = cv2.add(bg_overlay, fg_overlay)
 
 ## How depth images are created for fg_bg images?
 
+Notebook: **EVAS15_DenseDepth.ipynb**[(Link)](EVAS15_DenseDepth.ipynb)
+
 **Few challenges in handling 400k images?**
 
 1. loading all 400k images at a time is not feasible due to memory limitation
@@ -186,7 +192,7 @@ after every batch, memory are freed to ensure that it is avaiable for next itera
 **Key notes:**
 
 * nyu model is used [(Depth Models)](https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) to create depth maps for the fg_bg images:
-* ZipFile package is used to read fromzip(400k inputs) and write into zip file(400k outputs) so avoid data sync issue in colab.
+* ZipFile package is used to read fromzip(400k inputs) and write into zip file(400k outputs) so avoiding data sync issue in colab.
 * Data work flow is updated to process only 1000 images at a time for predictionto handle memory issues.
 * depth images are created as single channel as gray scale. 
 
