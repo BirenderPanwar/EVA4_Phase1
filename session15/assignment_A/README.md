@@ -49,41 +49,42 @@ Below plot show the randomly selected images from the custom dataset.
 
 ## How fg is overlay over bg?
 
-* bg, fg, fg_mask are the inputs images and using these images fg_bg and equivalent maks is created
+* Inputs are: bg_img, fg_img, fg_mask images
+* Output are: fg_bg and equivalent fg_bg_mask image
 
 ```
-bg_img -> background image
+bg_img -> input background image
 ```
 
 ![](doc_images/fg_bg_procedure/bg_img.jpg)
 
 ```
-fg_img -> foreground image
+fg_img -> input foreground image
 ```
 
 ![](doc_images/fg_bg_procedure/fg_img.jpg)
 
 ```
-fg_mask -> foreground mask image
+fg_mask -> input foreground mask image
 ```
 
-![](doc_images/fg_bg_procedure/fg_img.jpg)
+![](doc_images/fg_bg_procedure/fg_mask.jpg)
 
 ```
-Create forground image with black background.
+# Create forground image with black background.
 fg_img_with_mask = cv2.bitwise_and(fg_img, fg_mask)
 ```
 
 ![](doc_images/fg_bg_procedure/fg_img_with_mask.jpg)
 
 ```
-Choose random locations for masking. start location is choosen such that fg image get fits within bg image.
+# Choose random locations for masking. start location is choosen such that fg image get fits within bg image.
 h_start = np.random.randint(0,bg_img.shape[0]-h)
 w_start= np.random.randint(0,bg_img.shape[1]-w)
 ```
 
 ```
-Create mask for fg and bg overlay images 
+# Create mask for fg and bg overlay images 
 fg_bg_mask = np.zeros(bg_img.shape, bg_img.dtype)
 fg_bg_mask.fill(0)
 fg_bg_mask[h_start:h_start+h, w_start:w_start+w] = fg_mask[:,:]
@@ -92,6 +93,7 @@ fg_bg_mask[h_start:h_start+h, w_start:w_start+w] = fg_mask[:,:]
 ![](doc_images/fg_bg_procedure/fg_bg_mask.jpg)
 
 ```
+# Creat inverted mask.
 fg_bg_mask_inv = cv2.bitwise_not(fg_bg_mask)
 ```
 
