@@ -29,13 +29,15 @@ Google drive link for all the dataset are as below:
 * fg_bg_depth images[(Link)](https://drive.google.com/open?id=1-1aTnL5x5vwQgk-24mENomq9MQuxCPjW): Depth images for fg_bg
  
 ## Results 
+
 Let's have quick summary of dataset and visulaization for each kind of images
 
-*Dataset statistics*
+**Dataset statistics**
 
-<p align="center"><img style="max-width:500px" src="doc_images/dataset_statistics.png" alt="Dataset statistics"></p>
+<p align="center"><img style="max-width:800px" src="doc_images/dataset_statistics.png" alt="Dataset statistics"></p>
 
-*Dataset visualization*
+**Dataset visualization**
+
 Below plot show the randomly selected images from the custom dataset.
 * bg images
 * fg images
