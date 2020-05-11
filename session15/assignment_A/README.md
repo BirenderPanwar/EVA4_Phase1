@@ -99,24 +99,25 @@ User no need to wait for zip file to sync to their local machine.
 
 * Inputs are: bg_img, fg_img, fg_mask images
 * Output are: fg_bg and equivalent fg_bg_mask image. mask contains same file name for its fg_bg images
-* Mask are created as single channel as we need to just represent white or black pixels and is sufficient to represent the mask. 
+* Mask are created as single channel as we need to just represent white or black pixels and is sufficient to represent the mask.
+* refer notebook EVAS15_create_dataset.ipynb[(Link)](EVAS15_create_dataset.ipynb) for implemtation details 
 
 
 ```
-bg_img -> input background image (192, 192, 3)
+bg_img -> input background image **(192, 192, 3)**
 ```
 
 ![](doc_images/fg_bg_procedure/bg_img.jpg)
 
 ```
-fg_img -> input foreground image (102, 68, 3)
-Note: dimension vary for each fg images based on the object size in the image
+fg_img -> input foreground image **(102, 68, 3)**
+**Note: dimension vary for each fg images based on the object size in the image**
 ```
 
 ![](doc_images/fg_bg_procedure/fg_img.jpg)
 
 ```
-fg_mask -> input foreground mask image (102, 68, 3)
+fg_mask -> input foreground mask image **(102, 68, 3)**
 ```
 
 ![](doc_images/fg_bg_procedure/fg_mask.jpg)
@@ -190,12 +191,17 @@ after every batch, memory are freed to ensure that it is avaiable for next itera
 3. Zip file resources are created in append mode and all new depth file is added to the resource.
    all previous processed depth images are retained in out zip file and avaialble for recovery.
 
-**Key notes:**
+**Step followed:**
 
 * nyu model is used [(Depth Models)](https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) to create depth maps for the fg_bg images:
-* ZipFile package is used to read fromzip(400k inputs) and write into zip file(400k outputs) so avoiding data sync issue in colab.
-* Data work flow is updated to process only 1000 images at a time for prediction to handle memory issues.
-* depth images are created as single channel as gray scale. 
+* ZipFile package is used to read from zip(400k inputs) and write into zip file(400k outputs) so as to avoiding data sync issue in colab.
+* Data work flow is updated to process only 1000 images at a time for prediction to avoid memory overrun issues.
+* nyu Depth model does't give good result for low resolution images so input fg_bg images**(192,192,3)** are upsampled to **(480,480,3)**.
+* each fg_bg images are fed into model for prediction and model produce one channel output with half of input dimention. Hence output diemnsion is (240, 240)
+* output is rescaled between min and max to highlight the objects in the images
+* final depth images are created as single channel as gray scale.
+* depth output file name is retains same as the input filename. 
+* it took around **4:53:21 hours** to create depth images.
 
  
 below is the results of depth mask prediction.
