@@ -61,11 +61,10 @@ Notebook: **EVAS15_create_dataset.ipynb**[(Link)](EVAS15_create_dataset.ipynb)
 
 ## Some dicipline in folders and file naming convention
 
-* Dicipline is required to manage the entire dataset. seperate folder is maintained for each kind of dataset: 
-** bg_images, fg_images, fg_mask_images, fg_bg_images, fg_bg_mask_images, fg_bg_depth_images.
+* Dicipline is required to manage the entire dataset. seperate folder is maintained for each kind of dataset: bg_images, fg_images, fg_mask_images, fg_bg_images, fg_bg_mask_images, fg_bg_depth_images.
 * File naming guideline
-** For bg_images, fg_images, fg_mask_images dataset filename format: img_xxx.jpg (where xxx -> 1 to 100)
-** For fg_bg_images, fg_bg_mask_images, fg_bg_depth_images: fgxxx_bgxxx_xx.jpg or fgxxxflip_bgxxx_xx.jpg(Example: fg099_bg080_10.jpg or fg099flip_bg080_10.jpg
+  * For bg_images, fg_images, fg_mask_images dataset filename format: img_xxx.jpg (where xxx -> 1 to 100)
+  * For fg_bg_images, fg_bg_mask_images, fg_bg_depth_images: fgxxx_bgxxx_xx.jpg or fgxxxflip_bgxxx_xx.jpg(Example: fg099_bg080_10.jpg or fg099flip_bg080_10.jpg
 
 ## Dataset challenges for handling 400k images?
 
@@ -73,7 +72,7 @@ Notebook: **EVAS15_create_dataset.ipynb**[(Link)](EVAS15_create_dataset.ipynb)
 As zip file is single resource, colab is fast to sync this resource. As soon as zip file is created in colab, it is immediately accessible to all colab notebook for immediate use.
 User no need to wait for zip file to sync to their local machine.
 * Processing all 400k images need lots of RAM and it result in memory overrun. so approach is to process the images in batches and free the memory after each iterations so that memory requirement does not grow
-* For Depth prediction, images are processed in batch 1000 and deleting more once processed.
+* For Depth prediction, images are processed in batch 1000 images and freeing memory once processed.
 * For mean calculation of entire dataset, first mean are calculated for each batch of images and  then these batch mean are used to find the mean for entire dataset.
 
 ## Creation of background images - square shape
@@ -81,10 +80,10 @@ User no need to wait for zip file to sync to their local machine.
 * zip plugin for google chrome is useful to download all the images in one shot from internet
 * As images are of different shapes and resolution. so utility function is created to filter very high or low resolution images and resizing the images to 192X192 dimension.
 * Why 192?
-** size shall be multiple of 32 in order to work with nyu depth prediction model.
-** too high resolution images required more computation and RAM, so 192 is choosen so that we don't suffer with prediction efficieny and also RAM/computational requirement under control.
- there is always a trade off between higher efficieny or resource requirement.
-** file names are maintained as img_xxx.jpg (examples: img_001.jpg to img_100.jpg)
+  * size shall be multiple of 32 in order to work with nyu depth prediction model.
+  * too high resolution images required more computation and RAM, so 192 is choosen so as to not suffer suffer with prediction efficieny and also RAM/computational requirement remains under control.
+  * there is always a trade off between higher efficieny or resource requirement.
+* bg file names are maintained as img_xxx.jpg (examples: img_001.jpg to img_100.jpg)
  
 ## How foreground images and its equivalent mask are created?
 
@@ -93,7 +92,8 @@ User no need to wait for zip file to sync to their local machine.
 * As we need to have just forground object so resize image to the size of the object in image. Utility fucntion is created to cut the portion of image using cv2 package by making use of finding the object structure and its contours.
 * Create equivalent mask using alpha channel.
 * Mask are created as single channel as we need to just represent white or black pixels and is sufficient to represent the mask. 
-* Same file name is maintained for files in fg and its fg_mask. [format: img_xxx.jpg]
+* fg file names are maintained as img_xxx.jpg (examples: img_001.jpg to img_100.jpg)
+* For each fg images, same file name is maintained for its fg_mask . [format: img_xxx.jpg]
 
 ## How fg_bg images and its equivalent mask are created?
 
@@ -103,25 +103,26 @@ User no need to wait for zip file to sync to their local machine.
 
 
 ```
-bg_img -> input background image
+bg_img -> input background image (192, 192, 3)
 ```
 
 ![](doc_images/fg_bg_procedure/bg_img.jpg)
 
 ```
-fg_img -> input foreground image
+fg_img -> input foreground image (102, 68, 3)
+Note: dimension vary for each fg images based on the object size in the image
 ```
 
 ![](doc_images/fg_bg_procedure/fg_img.jpg)
 
 ```
-fg_mask -> input foreground mask image
+fg_mask -> input foreground mask image (102, 68, 3)
 ```
 
 ![](doc_images/fg_bg_procedure/fg_mask.jpg)
 
 ```
-# Create forground image with black background.
+# Create forground image with black background. (102, 68, 3)
 fg_img_with_mask = cv2.bitwise_and(fg_img, fg_mask)
 ```
 
@@ -134,7 +135,7 @@ w_start= np.random.randint(0,bg_img.shape[1]-w)
 ```
 
 ```
-# Create mask for fg and bg overlay images 
+# Create mask for fg and bg overlay images (192, 192, 3)
 fg_bg_mask = np.zeros(bg_img.shape, bg_img.dtype)
 fg_bg_mask.fill(0)
 fg_bg_mask[h_start:h_start+h, w_start:w_start+w] = fg_mask[:,:]
@@ -143,21 +144,21 @@ fg_bg_mask[h_start:h_start+h, w_start:w_start+w] = fg_mask[:,:]
 ![](doc_images/fg_bg_procedure/fg_bg_mask.jpg)
 
 ```
-# Creat inverted mask.
+# Creat inverted mask. (192, 192, 3)
 fg_bg_mask_inv = cv2.bitwise_not(fg_bg_mask)
 ```
 
 ![](doc_images/fg_bg_procedure/fg_bg_mask_inv.jpg)
 
 ```
-# background image with foreground portion filled with black
+# background image with foreground portion filled with black (192, 192, 3)
 bg_overlay = cv2.bitwise_and(bg_img, fg_bg_mask_inv)
 ```
 
 ![](doc_images/fg_bg_procedure/bg_overlay.jpg)
 
 ```
-# image with only forground portion is filled and remining background is kept black
+# image with only forground portion is filled and remining background is kept black (192, 192, 3)
 fg_overlay = np.zeros(bg_img.shape, bg_img.dtype)
 fg_overlay.fill(0)
 fg_overlay[h_start:h_start+h, w_start:w_start+w] = fg_img_with_mask[:,:]
@@ -166,7 +167,7 @@ fg_overlay[h_start:h_start+h, w_start:w_start+w] = fg_img_with_mask[:,:]
 ![](doc_images/fg_bg_procedure/fg_overlay.jpg)
 
 ```
-# Finally add both fg overlay and bg overlay images to get the fg_bg image
+# Finally add both fg overlay and bg overlay images to get the fg_bg image (192, 192, 3)
 fg_bg = cv2.add(bg_overlay, fg_overlay) 
 ```
 
@@ -193,7 +194,7 @@ after every batch, memory are freed to ensure that it is avaiable for next itera
 
 * nyu model is used [(Depth Models)](https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) to create depth maps for the fg_bg images:
 * ZipFile package is used to read fromzip(400k inputs) and write into zip file(400k outputs) so avoiding data sync issue in colab.
-* Data work flow is updated to process only 1000 images at a time for predictionto handle memory issues.
+* Data work flow is updated to process only 1000 images at a time for prediction to handle memory issues.
 * depth images are created as single channel as gray scale. 
 
  
