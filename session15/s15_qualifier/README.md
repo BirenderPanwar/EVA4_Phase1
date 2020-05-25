@@ -229,7 +229,7 @@ Lets have a look on how model with different loss functions are predicting mask 
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_ssimloss_shortdata/sample_similarity.png"></p>
 
 ### How Accuracy is calculated
-**Notebook: **EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb)
+**Notebook:** EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb)
 
 - Ground truth and predicted images are compared using Structural Similarity Index Mesaure Algorithm and threshold is defined for correct and incorrect prediction.
 - As our model is to predict mask and depth map and it mostly dealt with edges and object boundaries, and hence SSIM found to be one of the useful algoritm as it find similarity between images using structural patterns.
@@ -298,6 +298,8 @@ Lets have a look on how model with different loss functions are predicting mask 
 
 **Memory Usage**
 
+* Peak memory used: 4.625 GB, around 18% of RAM is used.
+* Every batch of training memory usage was 1.782 MB and freed regularly
 * System memory status is captured using psutil package
 * Memory status is captured every 1000 batch of running.  One epoch is 8750 batches with batch size of 32 and training samples of 280K
 * Parameters: Percentage of total memory in used, change in memory allocation between batches, peak memory used.
