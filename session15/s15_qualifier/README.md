@@ -242,7 +242,7 @@ Result is as below
 
 For accuracy calculation and technique, refer EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb) or [(colab)](https://drive.google.com/open?id=19TcBdQNC-s62IIbJ9eC4ohHulxkPTPrS) 
 
-Lets have a look on how model with different loss functions are predicting mask and depth for same test sample.
+**Lets have a look on how model with different loss functions are predicting mask and depth for same test sample.**
 
 **Accuracy for BCEwithLogitsLoss**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_bcewithlogitsloss_shortdata/sample_similarity.png"></p>
@@ -266,21 +266,21 @@ Lets have a look on how model with different loss functions are predicting mask 
 - For Depth: SSIM threshold is kept as 0.50 and any prediction above it are considered as good prediction. As Ground truth for Depth mask were not so accurate with respective to fg_bg images and hence for current situation, Depth Map prediction will not yeild good result. Again, we can build high capacity model for Depth prediction and threshold can be made aggresive
 - Details test result are shown in notebook
 
-## Now we have all components in place and it's time to design model and train for entire dataset**
+## Now we have all components in place and it's time to design model and train for entire dataset
 
-**Custom CNN Architecture**: 
+**Model-1: Custom CNN Architecture**: 
 * Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb) or [(colab)](https://drive.google.com/open?id=1sAyBMJSZx8lsTWjwxEyr8k0J5jz9F8WX)
 * Model Arch: DMNet_CNN_V1.py [(Link)](models/depthmap/DMNet_CNN_V1.py):
 <p align="center"><img style="max-width:500px" src="doc_images/common/cnn_v1_model_parameters.png"></p>
 
 
-**Custom Resnet Architecture** 
+**Model-2: Custom Resnet Architecture** 
 * Model Arch: DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py):
 * Model is trained in two part:
   * Part1: EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipyn [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipynb) or [(colab)](https://drive.google.com/open?id=1ZDerpQ4GngV0LvrsNMlNbg1RoIE_TAxm)
     * Model is executed for 6 epochs and its learned weight and optimizer states are saved
   * Part2 : EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb) or [(colab)](https://drive.google.com/open?id=1nPkgWhLFLgYn2cPm3hmHNcxacaK9OrPK)
-    * Part 1 trained model is reloaded and traning is resumed upto 19 epochs 
+    * Part 1 trained model is reloaded and training is resumed from last trained epoch and continued upto 19 epochs 
 <p align="center"><img style="max-width:500px" src="doc_images/common/resnet_model_parameters.png"></p>
 
 **Test Results: Custom CNN**
@@ -300,7 +300,7 @@ Lets have a look on how model with different loss functions are predicting mask 
 **Custom Resnet : Ground Truth and Prediction Images Similarity**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_resnet_bcewithlogitsloss_400k/sample_similarity.png"></p>
 
-### Lets deep dive on understanding memory usage, time profiling while training and results for Resnet model 
+## Lets deep dive on understanding memory usage, time profiling while training and results for Resnet model 
 **Solution Notebook:** EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb) or [(colab)](https://drive.google.com/open?id=1nPkgWhLFLgYn2cPm3hmHNcxacaK9OrPK):
 
 **Prediction results as training progresses**
