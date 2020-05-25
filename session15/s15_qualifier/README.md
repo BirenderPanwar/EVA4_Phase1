@@ -85,7 +85,7 @@ First notebook approach was to ensure all necessay component are in place and ve
 
 ## Let's walk through on each component in details
 
-### Custom Dataset Class, DepthMapDataset.py[(Link)](utils/DepthMapDataset.py): (#anchor-custom-dataset-class)
+### Custom Dataset Class, DepthMapDataset.py[(Link)](utils/DepthMapDataset.py): (# anchor-custom-dataset-class)
 
 1. *Class: DepthMapDatasetZip*: This is dataset to read image from ZIP file
    * Reading is done once during object creation and store into RAM. this help to avoid reading file from disk during _getitem and speedup training time.
