@@ -196,6 +196,7 @@ This model is trained for four different loss functions and their prediction res
 2. Total loss is calculated as sum of square root losses. square root have a property that for values less than 1 i.e decimal values(betw 0 to 1), square root of lower values yield higher result compare to higher values
 doing so the loss ratio get reduce. even though total loss increases but loss ratio is reduces.
 3. Another approached is to consider weighted sum of the two loss to balance the differences.
+4. Alternalively we can try with different loss fucntion for Mask and Depth predictions.[Opps.. this is not tried in this excersise.. left for further experiment)
 
 ```
 class CustomLoss_SqrtSum():
@@ -239,6 +240,15 @@ class CustomLoss_WeightedSum():
 To analyse which loss function is having better efficiency, the Accuracy for each model is calculated over 120K unseen test dataset.
 Result is as below
 <p align="center"><img style="max-width:500px" src="doc_images/common/same_model_diff_loss_fxn_accuracy_1.png"></p>
+
+As we can observe, SmoothL1Loss fucntions seems to be a good choice as it give better accuracy for both Mask and Depth predictions.
+SSIMLoss is giving good results for Mask prediction but having poor performace for Depth.
+
+**Hence suggestion for using loss fucntions**
+* For Mask Prediction: SSIMLoss or SmoothL1Loss function 
+* Depth Map prediction: SmoothL1Loss or MSELoss fucntion.
+
+
 
 For accuracy calculation and technique, refer EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb) or [(colab)](https://drive.google.com/open?id=19TcBdQNC-s62IIbJ9eC4ohHulxkPTPrS) 
 
@@ -353,14 +363,14 @@ For accuracy calculation and technique, refer EVA4S15_AccuracyCalculation.ipynb[
 
 <p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/train_timing_profile.png"></p>
 
-Model is trained for batched size of 32 and average execution time taken by each component while training is as below:
+Model is trained for batched size of 32 and average execution time taken by each component per batch while training is as below:
 
 <p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/train_timing_split.png"></p>
 
 As we analyse the time profile of training 400k dataset, most of the time is consume in loading batch of data.. 
 96% of training time is eatend up by the data loading part.
 
-The problem is that, each time a batch of images is loaded, PyTorch’s DataLoader calls the __getitem__() function on the DataSet 
+The problem is that, each time a batch of images is loaded, PyTorch’s DataLoader calls the __getitem__() function on the Dataset 
 once per samples and concatenates them, rather than reading batch of samples in one go. This approach is not efficient as we tend to use large batch sizes.
 
 **How to speed up the dataloader?**
