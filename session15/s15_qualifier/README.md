@@ -30,7 +30,7 @@ Notebook: **EVAS15_dataset_statistic_updated.ipynb**[(Link)](EVAS15_dataset_stat
 
 ## Major Components (Contents)
 
-* [Custom Dataset Class](#anchor-custom-dataset-class)
+* [Custom Dataset Class](#custom-dataset-class)
 * Memory Profiling and Timing Profiling, TimeMemoryProfile.py [(Link)](utils/TimeMemoryProfile.py)
 * Model utilities functions, depth_model_utils.py [(Link)](utils/depth_model_utils.py) 
 * Model Architecture
@@ -85,8 +85,7 @@ First notebook approach was to ensure all necessay component are in place and ve
 
 ## Let's walk through on each component in details
 
-#anchor custom dataset class
-### Custom Dataset Class, DepthMapDataset.py[(Link)](utils/DepthMapDataset.py):
+### Custom Dataset Class, DepthMapDataset.py[(Link)](utils/DepthMapDataset.py):(#anchor-custom-dataset-class)
 
 1. *Class: DepthMapDatasetZip*: This is dataset to read image from ZIP file
    * Reading is done once during object creation and store into RAM. this help to avoid reading file from disk during _getitem and speedup training time.
