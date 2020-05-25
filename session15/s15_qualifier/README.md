@@ -58,24 +58,24 @@ First notebook approach was to ensure all necessay component are in place and ve
 * Model Architecture
   * DMNet_CNN.py [(Link)](models/depthmap/DMNet_CNN.py): light weight model and used for experimental and analysis 
   * DMNet_CNN_V1.py [(Link)](models/depthmap/DMNet_CNN_V1.py): Higher capacity CNN model to increase model efficiency
-  * DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py.py): Custom Resnet architetcure to have various global receiptive field to increase model efficiency
+  * DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py): Custom Resnet architetcure to have various global receiptive field to increase model efficiency
 * Data Augmentation
 * Analysing various loss functions, EVA4S15_loss_algo_compare.ipynb [(Link)](EVA4S15_loss_algo_compare.ipynb):
 * Training Tiny CNN model for different Loss function
   * Model Architecure used: DMNet_CNN.py [(Link)](models/depthmap/DMNet_CNN.py): 
   * This model is trained for four different loss functions and their prediction results and accuracy are compared.
-	- Solution-1: Loss: BCEwithLogitsLoss [(Link)](EVA4S15_Main_CNN_BCEWithLogitsLoss_ShortData.ipynb): 
-	- Solution-2: Loss: SmoothL1Loss [(Link)](EVA4S15_Main_CNN_SmoothL1Loss_ShortData.ipynb): 
-	- Solution-3: Loss: MSELoss [(Link)](EVA4S15_Main_CNN_MSELoss_ShortData.ipynb): 
-	- Solution-4: Loss: SSIMLoss [(Link)](EVA4S15_Main_CNN_SSIMLoss_ShortData.ipynb):
-* Accuracy Calculation: EVA4S15_AccuracyCalculation [(Link)](EVA4S15_AccuracyCalculation.ipynb):
+	- Solution-1: Loss: BCEwithLogitsLoss [(Link)](EVA4S15_Main_CNN_BCEWithLogitsLoss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=1y7jSNUp3BBpJnTZnFTLRkqlZwne_Pm8_)
+	- Solution-2: Loss: SmoothL1Loss [(Link)](EVA4S15_Main_CNN_SmoothL1Loss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=1WkFz5J5cC8i0LyXWYvjO3kS6WmUpUhcS) 
+	- Solution-3: Loss: MSELoss [(Link)](EVA4S15_Main_CNN_MSELoss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=1RIvK500BJA9HcLoLCiOXsMDVifEQKpFP)
+	- Solution-4: Loss: SSIMLoss [(Link)](EVA4S15_Main_CNN_SSIMLoss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=109tLuAUgpjjCrujgwUg6Fl8DbWJf8N7k)
+* Accuracy Calculation: EVA4S15_AccuracyCalculation [(Link)](EVA4S15_AccuracyCalculation.ipynb) or [(colab)](https://drive.google.com/open?id=19TcBdQNC-s62IIbJ9eC4ohHulxkPTPrS)
 * Building Final model:
   * Model-1: Custom CNN Architecture: 
   	* Model Arch: DMNet_CNN_V1.py [(Link)](models/depthmap/DMNet_CNN_V1.py):
-	* Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb):
+	* Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb) or [(colab)](https://drive.google.com/open?id=1sAyBMJSZx8lsTWjwxEyr8k0J5jz9F8WX)
   * Model-2: Custom Resnet Architecture 
 	* Model Arch: DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py):
-	* Solution notebook, EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb)
+	* Solution notebook, EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb) or [(colab)](https://drive.google.com/open?id=1nPkgWhLFLgYn2cPm3hmHNcxacaK9OrPK)
 * Deep dive on analysis of Resnet model trained on entire dataset 
   * Prediction results as traning progresses
   * LR Trend
@@ -126,7 +126,7 @@ There models design and trained.
 2. DMNet_CNN_V1.py [(Link)](models/depthmap/DMNet_CNN_V1.py):  
    * Capacity is added to above CNN model to increase model efficiency
    * Trained on entire dataset(280K training samples)
-3. DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py.py): 
+3. DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py): 
    * Custom Resnet architetcure to have various global receiptive field to increase model efficiency
    * Trained on entire dataset(280K training samples)
 
@@ -149,7 +149,7 @@ so we need to think of image augmenttaion which are spatially invariance.
 
 ### Analysing how different loss functions calculate loss for two images.
 
-*Notebook: EVA4S15_loss_algo_compare.ipynb*[(Link)](EVA4S15_loss_algo_compare.ipynb): 
+*Notebook: EVA4S15_loss_algo_compare.ipynb*[(Link)](EVA4S15_loss_algo_compare.ipynb) or [(colab)]https://drive.google.com/open?id=1g6CC5rqNjsxmNfFtF-9fTpETC2TKRsYa): 
 
 In this notebook following five loss functions are analysed:
 - kornia.losses.SSIM
@@ -184,10 +184,10 @@ Various scenarios are considered and their loss values are calculated using diff
 * Trained for 30 Epochs
 
 This model is trained for four different loss functions and their prediction results and accuracy are compared.
-- Solution-1: Loss: BCEwithLogitsLoss[Notebook: EVA4S15_Main_CNN_BCEWithLogitsLoss_ShortData][(Link)](EVA4S15_Main_CNN_BCEWithLogitsLoss_ShortData.ipynb): 
-- Solution-2: Loss: SmoothL1Loss[Notebook: EVA4S15_Main_CNN_SmoothL1Loss_ShortData] [(Link)](EVA4S15_Main_CNN_SmoothL1Loss_ShortData.ipynb): 
-- Solution-3: Loss: MSELoss[Notebook: EVA4S15_Main_CNN_MSELoss_ShortData] [(Link)](EVA4S15_Main_CNN_MSELoss_ShortData.ipynb): 
-- Solution-4: Loss: SSIMLoss[Notebook: EVA4S15_Main_CNN_SSIMLoss_ShortData] [(Link)](EVA4S15_Main_CNN_SSIMLoss_ShortData.ipynb): 
+- Solution-1: Loss: BCEwithLogitsLoss[Notebook: EVA4S15_Main_CNN_BCEWithLogitsLoss_ShortData][(Link)](EVA4S15_Main_CNN_BCEWithLogitsLoss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=1y7jSNUp3BBpJnTZnFTLRkqlZwne_Pm8_) 
+- Solution-2: Loss: SmoothL1Loss[Notebook: EVA4S15_Main_CNN_SmoothL1Loss_ShortData] [(Link)](EVA4S15_Main_CNN_SmoothL1Loss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=1WkFz5J5cC8i0LyXWYvjO3kS6WmUpUhcS) 
+- Solution-3: Loss: MSELoss[Notebook: EVA4S15_Main_CNN_MSELoss_ShortData] [(Link)](EVA4S15_Main_CNN_MSELoss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=1RIvK500BJA9HcLoLCiOXsMDVifEQKpFP) 
+- Solution-4: Loss: SSIMLoss[Notebook: EVA4S15_Main_CNN_SSIMLoss_ShortData] [(Link)](EVA4S15_Main_CNN_SSIMLoss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=109tLuAUgpjjCrujgwUg6Fl8DbWJf8N7k) 
 
 Model is trained with following configurations:
 
@@ -206,13 +206,13 @@ Model is trained with following configurations:
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_ssimloss_shortdata/test_prediction.png"></p>
 
 
-**Accuracy Results**, EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb):
+**Accuracy Results**
 
 To analyse which loss function is having better efficiency, the Accuracy for each model is calculated over 120K unseen test dataset.
 Result is as below
 <p align="center"><img style="max-width:500px" src="doc_images/common/same_model_diff_loss_fxn_accuracy_1.png"></p>
 
-For accuracy calculation and technique, refer EVA4S15_AccuracyCalculation.ipynb [(Link)](EVA4S15_AccuracyCalculation.ipynb): 
+For accuracy calculation and technique, refer EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb) or [(colab)](https://drive.google.com/open?id=19TcBdQNC-s62IIbJ9eC4ohHulxkPTPrS) 
 
 Lets have a look on how model with different loss functions are predicting mask and depth for same test sample.
 
@@ -229,28 +229,28 @@ Lets have a look on how model with different loss functions are predicting mask 
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_ssimloss_shortdata/sample_similarity.png"></p>
 
 ### How Accuracy is calculated
-**Notebook:** EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb)
+**Notebook:** EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb) or [(colab)](https://drive.google.com/open?id=19TcBdQNC-s62IIbJ9eC4ohHulxkPTPrS)
 
 - Ground truth and predicted images are compared using Structural Similarity Index Mesaure Algorithm and threshold is defined for correct and incorrect prediction.
 - As our model is to predict mask and depth map and it mostly dealt with edges and object boundaries, and hence SSIM found to be one of the useful algoritm as it find similarity between images using structural patterns.
 - In SSIM, index close to 1 mean two images are same while close to 0 mean having dissimilarity.
 - For Mask: SSIM threshold is kept as 0.90 and any prediction above it are cosnidered as good prediction. However, setting of threshold is quite subjective and user can play with different threshold as per their model efficieny requirement and resource trade-off
 - For Depth: SSIM threshold is kept as 0.50 and any prediction above it are considered as good prediction. As Ground truth for Depth mask were not so accurate with respective to fg_bg images and hence for current situation, Depth Map prediction will not yeild good result. Again, we can build high capacity model for Depth prediction and threshold can be made aggresive
-
+- Details test result are shown in notebook
 
 ## Now we have all the things and components in place and it's time to design model and train for entire dataset**
 
 **Custom CNN Architecture**: 
-* Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb):
+* Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb) or [(colab)](https://drive.google.com/open?id=1sAyBMJSZx8lsTWjwxEyr8k0J5jz9F8WX)
 * Model Arch: DMNet_CNN_V1.py [(Link)](models/depthmap/DMNet_CNN_V1.py):
 
 
 **Custom Resnet Architecture** 
 * Model Arch: DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py):
 * Model is trained in two part:
-  * Part1: EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipyn [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipynb). 
+  * Part1: EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipyn [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipynb) or [(colab)] (https://drive.google.com/open?id=1ZDerpQ4GngV0LvrsNMlNbg1RoIE_TAxm)
     * Model is executed for 6 epochs and its learned weight and optimizer states are saved
-  * Part2 : EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb):
+  * Part2 : EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb) or [(colab)](https://drive.google.com/open?id=1nPkgWhLFLgYn2cPm3hmHNcxacaK9OrPK)
     * Part 1 trained model is reloaded and traning is resumed upto 19 epochs 
 
 **Test Results: Custom CNN**
@@ -268,7 +268,7 @@ Lets have a look on how model with different loss functions are predicting mask 
 <p align="center"><img style="max-width:500px" src="doc_images/tr_resnet_bcewithlogitsloss_400k/sample_similarity.png"></p>
 
 ### Lets deep dive on understanding training profile and results for Resnet model 
-**Solution Notebook:** EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb):
+**Solution Notebook:** EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb) or [(colab)](https://drive.google.com/open?id=1nPkgWhLFLgYn2cPm3hmHNcxacaK9OrPK):
 
 **Prediction results as training progresses**
 
