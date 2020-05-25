@@ -187,9 +187,39 @@ This model is trained for four different loss functions and their prediction res
 - Solution-3: Loss: MSELoss[Notebook: EVA4S15_Main_CNN_MSELoss_ShortData] [(Link)](EVA4S15_Main_CNN_MSELoss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=1RIvK500BJA9HcLoLCiOXsMDVifEQKpFP) 
 - Solution-4: Loss: SSIMLoss[Notebook: EVA4S15_Main_CNN_SSIMLoss_ShortData] [(Link)](EVA4S15_Main_CNN_SSIMLoss_ShortData.ipynb) or [(colab)](https://drive.google.com/open?id=109tLuAUgpjjCrujgwUg6Fl8DbWJf8N7k) 
 
-Model is trained with following configurations:
-
+**Model is trained with following configurations**
 <p align="center"><img style="max-width:500px" src="doc_images/common/same_model_diff_loss_fxn_shortdata.png"></p>
+
+**Stategy for calculating total loss for the model**
+
+1. It is observed that comparitively loss for Depth Map is higher than that of Mask and it is obvious as depth have much more objects and its gradient to captures.
+2. Total loss is calculated as sum of square root losses. square root have a property that for values less than 1 i.e decimal values(betw 0 to 1), square root of lower values yield higher result compare to higher values
+doing so the loss ratio get reduce. even though total loss increases but loss ratio is reduces.
+3. Another approached is to consider weighted sum of the two loss to balance the differences.
+
+```
+class CustomLoss_SqrtSum():
+  def __init__(self, criterion):
+      self.criterion = criterion
+
+  def __call__(self, output_m, target_m, output_d, target_d):
+      loss_m = self.criterion(output_m, target_m)
+      loss_d = self.criterion(output_d, target_d)
+      loss = torch.sqrt(loss_m) + torch.sqrt(loss_d)
+      return loss, loss_m, loss_d
+
+class CustomLoss_WeightedSum():
+  def __init__(self, criterion, m_wt=1, d_wt=1):
+      self.criterion = criterion
+      self.m_wt = m_wt
+      self.d_wt = d_wt
+
+  def __call__(self, output_m, target_m, output_d, target_d):
+      loss_m = self.criterion(output_m, target_m)
+      loss_d = self.criterion(output_d, target_d)
+      loss = self.m_wt*loss_m + self.d_wt*loss_d
+      return loss, loss_m, loss_d
+```
 
 **Test Prediction for Loss: BCEwithLogitsLoss**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_bcewithlogitsloss_shortdata/test_prediction.png"></p>
@@ -261,10 +291,13 @@ Lets have a look on how model with different loss functions are predicting mask 
 
 **Lets have a look on how two different model predicting mask and depth for same test sample.**
 
-**Custom CNN**
+**model test accuracy on 120k test samples**
+<p align="center"><img style="max-width:500px" src="doc_images/common/model_accuracy.png"></p>
+
+**Custom CNN : Ground Truth and Prediction Images Similarity**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_v1_bcewithlogitsloss_400k/sample_similarity.png"></p>
 
-**Custom Resnet**
+**Custom Resnet : Ground Truth and Prediction Images Similarity**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_resnet_bcewithlogitsloss_400k/sample_similarity.png"></p>
 
 ### Lets deep dive on understanding memory usage, time profiling while training and results for Resnet model 
