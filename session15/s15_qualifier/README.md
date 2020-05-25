@@ -92,7 +92,7 @@ There models design and trained.
   * Custom Resnet architetcure to have various global receiptive field to increase model efficiency
   * Trained on entire dataset(280K training samples)
 
-<p align="center"><img style="max-width:800px" src="doc_images/model_parameters.png" alt="Model Architecture"></p>
+<p align="center"><img style="max-width:800px" src="doc_images/common/model_parameters.png" alt="Model Architecture"></p>
 
 
 ### Data Augmentation
