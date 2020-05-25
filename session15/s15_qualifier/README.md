@@ -274,7 +274,9 @@ For more detail on accuracy calculation and technique, refer EVA4S15_AccuracyCal
 - For Depth: SSIM threshold is kept as 0.50 and any prediction above it are considered as good prediction. As Ground truth for Depth mask were not so accurate with respective to fg_bg images and hence for current situation, Depth Map prediction will not yeild good result. Again, we can build high capacity model for Depth prediction and threshold can be made aggresive
 - Details test result are shown in notebook
 
-## Now we have all components in place and it's time to design model and train for entire dataset
+## Now we have all components in place and it's time to design model and train for entire dataset of 400K images 
+
+**Training set: 280K, Testing set: 120K**
 
 **Model-1: Custom CNN Architecture**: 
 * Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb) or [(colab)](https://drive.google.com/open?id=1sAyBMJSZx8lsTWjwxEyr8k0J5jz9F8WX)
