@@ -241,16 +241,14 @@ To analyse which loss function is having better efficiency, the Accuracy for eac
 Result is as below
 <p align="center"><img style="max-width:500px" src="doc_images/common/same_model_diff_loss_fxn_accuracy_1.png"></p>
 
-As we can observe, SmoothL1Loss fucntions seems to be a good choice as it give better accuracy for both Mask and Depth predictions.
+As we can observe, SmoothL1Loss function seems to be a good choice as it give better accuracy for both Mask and Depth predictions.
 SSIMLoss is giving good results for Mask prediction but having poor performace for Depth.
 
 **Hence suggestion for using loss fucntions**
 * For Mask Prediction: SSIMLoss or SmoothL1Loss function 
 * Depth Map prediction: SmoothL1Loss or MSELoss fucntion.
 
-
-
-For accuracy calculation and technique, refer EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb) or [(colab)](https://drive.google.com/open?id=19TcBdQNC-s62IIbJ9eC4ohHulxkPTPrS) 
+For more detail on accuracy calculation and technique, refer EVA4S15_AccuracyCalculation.ipynb[(Link)](EVA4S15_AccuracyCalculation.ipynb) or [(colab)](https://drive.google.com/open?id=19TcBdQNC-s62IIbJ9eC4ohHulxkPTPrS) 
 
 **Lets have a look on how model with different loss functions are predicting mask and depth for same test sample.**
 
