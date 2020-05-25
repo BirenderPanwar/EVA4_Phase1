@@ -193,7 +193,7 @@ Lets have a look on how model with different loss fucntions are predicting mask 
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_ssimloss_shortdata/sample_similarity.png"></p>
 
 
-## Now we have all the things and components in place and it's time to desing model and train for entire dataset**
+## Now we have all the things and components in place and it's time to design model and train for entire dataset**
 
 **Custom CNN Architecture**: 
 * Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb):
@@ -221,5 +221,74 @@ Lets have a look on how two different model predicting mask and depth for same t
 
 **Custom Resnet**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_resnet_bcewithlogitsloss_400k/sample_similarity.png"></p>
+
+### Lets deep dive on understanding traning profile and results for Resnet model, EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb):
+
+**Prediction results as traning progresses**
+
+**Epoch-1**
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/ep1_prediction.png"></p>
+
+**Epoch-5**
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/ep5_prediction.png"></p>
+
+**Epoch-10**
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/ep10_prediction.png"></p>
+
+**Epoch-19**
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/ep19_prediction.png"></p>
+
+ 
+**Training losses**
+
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/loss_trend.png"></p>
+
+**LR Trend**
+* CyclicLR policy is used with LR range from 0.001 to 0.01.
+* step_up_size=2000, step_down_size=2000
+* ReducelrOnPlateau is used to overcome the situtaion when model get stuck in plateau regions.
+
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/loss_trend.png"></p>
+
+**Memory Usage**
+
+* System memory status is captured using psutil package
+* Memory status is captured every 1000 batch of running.  One epoch is 8750 batches with batch size of 32 and training samples of 280K
+* Parameters: Percentage of total memory in used, change in memory allocation between batches, peak memory used.
+* Memory Profiling Class: MemoryUsage [(Link)](utils/TimeMemoryProfile.py)
+* Profiling is done inside training loop, DepthModelUtils:train()[(Link)](utils/depth_model_utils.py)
+* Realtine memory status is logged into tensor board.
+
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/memory_usage.png"></p>
+
+**Timing Profiling for training**
+
+* batch wise timing profiling is done.
+* Timing metric captured on tensor board:
+  * Data laoding for each batch of data (batch size of 32)
+  * Forward Pass executuon time
+  * Loss calculation time
+  * Back propagation time
+
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/train_timing_profile.png"></p>
+
+Model is trained for batched size of 32 and average execution time taken by each component while training is as below:
+
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/train_timing_split.png"></p>
+
+As we analyse the time profile of training 400k dataset, most of the time is consume in loading batch of data.. 
+96% of training time is eatend up by the data loading part.
+
+The problem is that, each time a batch of images is loaded, PyTorch’s DataLoader calls the __getitem__() function on the DataSet 
+once per samples and concatenates them, rather than reading batch of samples in one go. This approach is not efficient as we tend to use large batch sizes.
+
+**How to speed up the dataloader?**
+
+Main contraint that hampering training performance is the storage IOPS(I/O per sec). As we have throusands of images files and trying to move GB's of data and reading each file individually, 
+it lead to saturating IOPS well before reaching maximum GPU or CPU utilization. 
+One way to overcome such issue is the use of Pytouch DistributedDataParallel or apex.DistributedDataParallel
+
+
+ 
 
 
