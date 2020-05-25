@@ -157,18 +157,16 @@ Model is trained with following configurations:
 
 Test Prediction comparision for same test samples:
 
-<p align="center"><img style="max-width:500px" src="doc_images/common/same_model_diff_loss_prediction.png"></p>
-
-**Test Results: Loss: BCEwithLogitsLoss**
+**Test Prediction for Loss: BCEwithLogitsLoss**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_bcewithlogitsloss_shortdata/test_prediction.png"></p>
 
-**Test Results: Loss: SmoothL1Loss**
+**Test Prediction for Loss: SmoothL1Loss**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_smoothl1loss_shortdata/test_prediction.png"></p>
 
-**Test Results: Loss: MSELoss**
+**Test Prediction for Loss: MSELoss**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_mseloss_shortdata/test_prediction.png"></p>
 
-**Test Results: Loss: SSIMLoss**
+**Test Prediction for Loss: SSIMLoss**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_ssimloss_shortdata/test_prediction.png"></p>
 
 
@@ -197,15 +195,18 @@ Lets have a look on how model with different loss fucntions are predicting mask 
 
 **Now we have all the things and components in place and it's time to desing model and train for entire dataset**
 
-Custom CNN Architecture [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb):
-Model Arch: [(Link)](models/depthmap/DMNet_CNN_V1.py):
+**Custom CNN Architecture**: 
+* Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb):
+* Model Arch: DMNet_CNN_V1.py [(Link)](models/depthmap/DMNet_CNN_V1.py):
 
 
-Custom Resnet Architecture 
-1. Model Arch: [(Link)](models/depthmap/DMNet_Resnet.py):
+**Custom Resnet Architecture** 
+* Model Arch: DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py):
 2. It is executed in two part:
-* Part1 [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipynb):
-* Part2 [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb):
+* Part1: EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipyn [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part1.ipynb). 
+  * Model is executed for 6 epochs and its learned weight and optimizer states are saved
+* Part2 : EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb [(Link)](EVA4S15_Main_Resnet_BCELogitsLoss_400k_Part2.ipynb):
+  * Part 1 trained model is reloaded and traning is resumed upto 19 epochs 
 
 **Test Results: Custom CNN**
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_v1_bcewithlogitsloss_400k/test_prediction.png"></p>
