@@ -25,7 +25,7 @@ Google drive link for all the dataset are as below:
 * fg images[(Link)](https://drive.google.com/open?id=1e3Pp7zMZOiXGqrRbblRVxO3q_0Ch0m3-): Foreground images
 * fg_mask images[(Link)](https://drive.google.com/open?id=1Phw6KL1z2dbRpvOB369LyZLnWMo2nY-d): Mask for fg images
 * fg_bg images[(Link)](https://drive.google.com/open?id=14txr_9iw6Vjfc7p4d-daAtq21-makeH_): each fg images are overlays randomly 20 time on the background. same thing is repeated for Flip images. Hence 40 images are created for each fg ovelay on each bg.
-* fg_bg_mask images[(Link)](https://drive.google.com/open?id=14w2EIrHrVR3MMCw00wvz0k9RelG_sQ10): Equivalent mask for fg_bg images
+* fg_bg_mask images[(Link)](https://drive.google.com/open?id=12fRHHV-_x1GCmE6tTbgHiAX-tlPYiHyO): Equivalent mask for fg_bg images
 * fg_bg_depth images[(Link)](https://drive.google.com/open?id=1-1aTnL5x5vwQgk-24mENomq9MQuxCPjW): Depth images for fg_bg
  
 ## Results 
@@ -34,9 +34,9 @@ Let's have quick summary of dataset and visulaization for each kind of images
 
 **Dataset statistics**
 
-Notebook: **EVAS15_dataset_statistic.ipynb**[(Link)](EVAS15_dataset_statistic.ipynb):
+Notebook: **EVAS15_dataset_statistic.ipynb**[(Link)](EVAS15_dataset_statistic_updated.ipynb):
 
-<p align="center"><img style="max-width:800px" src="doc_images/dataset_statistics.png" alt="Dataset statistics"></p>
+<p align="center"><img style="max-width:800px" src="doc_images/dataset_statistics_updated.png" alt="Dataset statistics"></p>
 
 **Dataset visualization**
 
@@ -48,7 +48,7 @@ Below plot show the randomly selected images from the custom dataset.
 * fg_bg_mask images
 * fg_bg_depth images
 
-<p align="center"><img style="max-width:500px" src="doc_images/dataset_visual.jpg" alt="Dataset visualization"></p>
+<p align="center"><img style="max-width:500px" src="doc_images/dataset_visual_updated.jpg" alt="Dataset visualization"></p>
 
 **Dataset creation time**
 
