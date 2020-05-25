@@ -1,17 +1,18 @@
-## Assignment-15: Building a model for mask and depth map prediction for custom dataset where foreground are overlay over background and it equivalent ground truth mask and depth are given as target images.
+## Assignment-15: 
+Building a model for mask and depth map prediction for custom dataset where foreground are overlay over background and it equivalent ground truth mask and depth are given as target images.
 
-* Custom Dataset and data loaded fucntions
+* Custom Dataset and data loaded functions
 * Data split: 70:30(train:test)
 * Image augmentation techniques
-* Experiment with different Loss fucntions
-* Technique for Accuracy Calculation
+* Experiment with different Loss functions
+* Technique for accuracy calculation
 * Experiment with various model architecture
 * Strategy for beating 12 hours colab limitation run
 
 
 ## Dataset overview?
 
-* Datasetsize: 400K
+* Dataset size: 400K
 * Background theme: "Classroom"
 * Foreground objects: student or/and teacher
 * For building of model we need four kind of images: 
@@ -23,14 +24,14 @@ Let's have quick summary of dataset and visulaization for each kind of images
 
 **Dataset statistics**
 
-Notebook: **EVAS15_dataset_statistic.ipynb**[(Link)](EVAS15_dataset_statistic.ipynb):
+Notebook: **EVAS15_dataset_statistic_updated.ipynb**[(Link)](EVAS15_dataset_statistic.ipynb):
 
 <p align="center"><img style="max-width:800px" src="../assignment_A/doc_images/dataset_statistics_updated.png" alt="Dataset statistics"></p>
 
 
 ## Getting thing right, First Notebook?
 
-First notebook approach was to ensure all necessay component are in place and verify with small dataset and tiny model.
+First notebook approach was to ensure all necessay component are in place and verifed with small dataset and tiny model.
 
 1. Created end to end model pipeline
 2. Created custom dataset class to load data from folder and handling data iterator
@@ -48,6 +49,41 @@ First notebook approach was to ensure all necessay component are in place and ve
   * Peak memory usage while loading data, preparing of dataset and data loader
   * memory usage for each epoch
 11. All timing and memory usage logs are captured and passed to tensorboard for analysis.
+
+## Major Components (Contents)
+
+* Custom Dataset Class, DepthMapDataset.py[(Link)](utils/DepthMapDataset.py
+* Memory Profiling and Timing Profiling, TimeMemoryProfile.py [(Link)](utils/TimeMemoryProfile.py)
+* Model utilities functions, depth_model_utils.py [(Link)](utils/depth_model_utils.py) 
+* Model Architecture
+  * DMNet_CNN.py [(Link)](models/depthmap/DMNet_CNN.py): light weight model and used for experimental and analysis 
+  * DMNet_CNN_V1.py [(Link)](models/depthmap/DMNet_CNN_V1.py): Higher capacity CNN model to increase model efficiency
+  * DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py.py): Custom Resnet architetcure to have various global receiptive field to increase model efficiency
+* Data Augmentation
+* Analysing various loss functions, EVA4S15_loss_algo_compare.ipynb [(Link)](EVA4S15_loss_algo_compare.ipynb):
+* Training Tiny CNN model for different Loss function
+  * Model Architecure used: DMNet_CNN.py [(Link)](models/depthmap/DMNet_CNN.py): 
+  * This model is trained for four different loss functions and their prediction results and accuracy are compared.
+	- Solution-1: Loss: BCEwithLogitsLoss [(Link)](EVA4S15_Main_CNN_BCEWithLogitsLoss_ShortData.ipynb): 
+	- Solution-2: Loss: SmoothL1Loss [(Link)](EVA4S15_Main_CNN_SmoothL1Loss_ShortData.ipynb): 
+	- Solution-3: Loss: MSELoss [(Link)](EVA4S15_Main_CNN_MSELoss_ShortData.ipynb): 
+	- Solution-4: Loss: SSIMLoss [(Link)](EVA4S15_Main_CNN_SSIMLoss_ShortData.ipynb):
+* Accuracy Calculation
+* Building Final model:
+  * Model-1: Custom CNN Architecture: 
+	* Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb):
+	* Model Arch: DMNet_CNN_V1.py [(Link)](models/depthmap/DMNet_CNN_V1.py):
+  2. Custom Resnet Architecture** 
+	* Model Arch: DMNet_Resnet.py [(Link)](models/depthmap/DMNet_Resnet.py):
+* Details analysis of Resnet model 
+  * Prediction results as traning progresses
+  * LR Trend
+  * Training losses
+  * Memory usage
+  * Timing Profiling for training
+  * How to speedup data loaded
+
+## Let's walk throuhg on each component in details
 
 ### Custom Dataset Class, DepthMapDataset.py[(Link)](utils/DepthMapDataset.py): 
 
@@ -77,6 +113,7 @@ First notebook approach was to ensure all necessay component are in place and ve
 7. All timing and memory usage logs are captured and passed to tensorboard for analysis.
   
 ### Model utilities functions, depth_model_utils.py [(Link)](utils/depth_model_utils.py) 
+
 1. model build, train, test, load model, save modle are defined in this file. 
 2. memory and timing profiling are capture under this file 
 
@@ -111,7 +148,7 @@ so we need to think of image augmenttaion which are spatially invariance.
 
 ### Analysing how different loss functions calculate loss for two images.
 
-*Notebook: EVA4S15_loss_algo_compare.ipynb* [(Link)](EVA4S15_loss_algo_compare.ipynb): 
+*Notebook: EVA4S15_loss_algo_compare.ipynb [(Link)](EVA4S15_loss_algo_compare.ipynb): 
 
 In this notebook following five loss functions are analysed:
 - kornia.losses.SSIM
