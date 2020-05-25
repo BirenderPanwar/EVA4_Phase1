@@ -193,7 +193,7 @@ Lets have a look on how model with different loss fucntions are predicting mask 
 <p align="center"><img style="max-width:500px" src="doc_images/tr_cnn_ssimloss_shortdata/sample_similarity.png"></p>
 
 
-**Now we have all the things and components in place and it's time to desing model and train for entire dataset**
+## Now we have all the things and components in place and it's time to desing model and train for entire dataset**
 
 **Custom CNN Architecture**: 
 * Solution Notebook: EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb [(Link)](EVA4S15_Main_CNN_V1_BCEWithLogitsLoss_400k.ipynb):
