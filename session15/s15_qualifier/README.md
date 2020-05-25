@@ -30,7 +30,7 @@ Notebook: **EVAS15_dataset_statistic_updated.ipynb**[(Link)](EVAS15_dataset_stat
 
 ## Major Components (Contents)
 
-* [Custom Dataset Class](#custom-dataset-class)
+* Custom Dataset Class, DepthMapDataset.py[(Link)](utils/DepthMapDataset.py)
 * Memory Profiling and Timing Profiling, TimeMemoryProfile.py [(Link)](utils/TimeMemoryProfile.py)
 * Model utilities functions, depth_model_utils.py [(Link)](utils/depth_model_utils.py) 
 * Model Architecture
