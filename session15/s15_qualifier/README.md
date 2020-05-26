@@ -337,7 +337,7 @@ For more detail on accuracy calculation and technique, refer EVA4S15_AccuracyCal
 * step_up_size=2000, step_down_size=2000
 * ReducelrOnPlateau is used to overcome the situtaion when model get stuck in plateau regions.
 
-<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/loss_trend.png"></p>
+<p align="center"><img style="max-width:500px" src="doc_images/resnet_profiling/lr_trend.png"></p>
 
 **Memory Usage**
 
